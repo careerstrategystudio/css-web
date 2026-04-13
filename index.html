@@ -18,7 +18,7 @@
 </head>
 <body class="bg-white text-gray-800">
 
-    <!-- Navegación + selector idioma + carrito -->
+    <!-- Navegación -->
     <nav class="border-b border-gray-200 bg-white/90 backdrop-blur-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
@@ -69,14 +69,14 @@
         </p>
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
+            <button
                 id="hero-btn"
-                href="https://calendar.google.com/calendar/u/0?cid=careerstrategystudio@gmail.com"
-                target="_blank"
+                type="button"
+                onclick="openBookingCalendar()"
                 class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg inline-flex items-center justify-center gap-2 transition-fast"
             >
                 <i class="fas fa-calendar-alt"></i> Reservar sesión de diagnóstico gratuita
-            </a>
+            </button>
 
             <a
                 href="#precios"
@@ -121,7 +121,7 @@
         </div>
     </section>
 
-    <!-- Perfiles -->
+    <!-- Consultores -->
     <section class="py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 gap-8">
@@ -150,6 +150,15 @@
                         <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">Escalations</span>
                         <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">Career Strategy</span>
                     </div>
+
+                    <button
+                        id="galizzi-btn"
+                        type="button"
+                        onclick="contactConsultant('galizzi')"
+                        class="mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg transition-fast"
+                    >
+                        Hablar con Javier Galizzi
+                    </button>
                 </div>
 
                 <!-- Javier Ayala -->
@@ -175,6 +184,15 @@
                         <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">Account Management</span>
                         <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">Coaching de carrera</span>
                     </div>
+
+                    <button
+                        id="ayala-btn"
+                        type="button"
+                        onclick="contactConsultant('ayala')"
+                        class="mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg transition-fast"
+                    >
+                        Hablar con Javier Ayala
+                    </button>
                 </div>
             </div>
         </div>
@@ -268,7 +286,7 @@
         </div>
     </section>
 
-    <!-- Qué cambia -->
+    <!-- Antes / Después -->
     <section class="bg-gray-50 py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 id="cambia-titulo" class="text-3xl font-bold text-center text-gray-900 mb-4">
@@ -415,7 +433,7 @@
         </div>
     </section>
 
-    <!-- CTA -->
+    <!-- CTA final -->
     <section class="bg-indigo-50 py-16 text-center">
         <div class="max-w-3xl mx-auto px-4">
             <h2 id="cta-titulo" class="text-3xl font-bold text-gray-900 mb-4">
@@ -426,14 +444,14 @@
                 Reserva una sesión de diagnóstico gratuita de 50 minutos. Sin compromiso — solo una conversación honesta sobre tu situación y cómo podemos ayudarte.
             </p>
 
-            <a
-                href="https://calendar.google.com/calendar/u/0?cid=careerstrategystudio@gmail.com"
-                target="_blank"
+            <button
                 id="cta-btn"
+                type="button"
+                onclick="openBookingCalendar()"
                 class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg inline-flex items-center gap-2 transition-fast"
             >
                 <i class="fas fa-calendar-alt"></i> Reservar sesión de diagnóstico gratuita
-            </a>
+            </button>
 
             <p id="cta-note" class="text-sm text-gray-500 mt-4">50 minutos · Online · Sin compromiso</p>
         </div>
@@ -447,12 +465,12 @@
         </p>
     </footer>
 
-    <!-- CARRITO -->
+    <!-- Carrito -->
     <div id="cart-overlay" class="hidden fixed inset-0 bg-black/40 z-[90]" onclick="toggleCart(false)"></div>
 
     <aside id="cart-sidebar" class="hidden fixed top-0 right-0 h-full w-full sm:max-w-md bg-white z-[100] shadow-2xl border-l border-gray-200 flex flex-col">
         <div class="p-6 border-b flex items-center justify-between">
-            <h3 id="cart-title" class="text-2xl font-bold">Tu carrito</h3>
+            <h3 id="cart-title" class="text-2xl font-bold">Tus servicios seleccionados</h3>
             <button type="button" onclick="toggleCart(false)" class="text-3xl leading-none text-gray-400 hover:text-gray-600">×</button>
         </div>
 
@@ -464,14 +482,12 @@
                 <span id="cart-total" class="text-indigo-600">€0</span>
             </div>
 
-            <p id="cart-disclaimer" class="hidden text-xs text-gray-500"></p>
+            <p id="cart-note" class="text-xs text-gray-500">
+                Te confirmaremos disponibilidad y te enviaremos el enlace de pago.
+            </p>
 
-            <button id="cart-checkout-btn" type="button" onclick="proceedToBooking()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold transition-fast">
-                Enviar por WhatsApp
-            </button>
-
-            <button id="cart-calendar-btn" type="button" onclick="openCalendar()" class="w-full py-3 border border-gray-300 hover:border-indigo-300 text-gray-700 hover:text-indigo-600 rounded-xl font-semibold transition-fast">
-                Ir al calendario
+            <button id="cart-checkout-btn" type="button" onclick="proceedToCartWhatsApp()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold transition-fast">
+                Solicitar y coordinar por WhatsApp
             </button>
 
             <button id="cart-clear-btn" type="button" onclick="clearCart()" class="w-full py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-semibold transition-fast">
@@ -481,46 +497,63 @@
     </aside>
 
     <script>
-        let currentLang = 'es';
-        let currentRegion = 'ie';
+        let currentLang = "es";
+        let currentRegion = "ie";
 
         const BOOKING_URL = "https://calendar.google.com/calendar/u/0?cid=careerstrategystudio@gmail.com";
-        const WHATSAPP_NUMBER = "353876071392";
+        const AYALA_NUMBER = "353876071214";
+        const GALIZZI_NUMBER = "353896083984";
 
         let cart = JSON.parse(localStorage.getItem("css_cart") || "[]");
+
+        const regionLabels = {
+            es: { ie: "Irlanda / UK", es: "España", latam: "Latinoamérica" },
+            en: { ie: "Ireland / UK", es: "Spain", latam: "Latin America" },
+            pt: { ie: "Irlanda / UK", es: "Espanha", latam: "América Latina" }
+        };
 
         const preciosTexts = {
             es: {
                 entrada: "Entrada · Sesión puntual",
                 estrategia: "Programa Estrategia",
                 acompanamiento: "Acompañamiento total",
-                reservar: "Reservar sesión",
-                quieroEmpezar: "Quiero empezar",
-                saberMas: "Saber más",
-                descuentoEntrada: "El importe se descuenta si luego contratas un programa.",
-                descuentoEstrategia: "Si ya hiciste sesión puntual, se descuenta.",
-                descuentoAcompanamiento: "La sesión de diagnóstico previa se descuenta.",
+
+                ctaEntrada: "Reservar y pagar",
+                ctaEstrategia: "Reservar diagnóstico gratuito",
+                ctaAcompanamiento: "Hablar por WhatsApp",
+                agregarCarrito: "Añadir al carrito",
+
+                entradaNota: "Ideal si necesitas una sesión concreta de orientación, revisión o desbloqueo.",
+                estrategiaNota: "Primero evaluamos tu situación y confirmamos si este programa encaja contigo.",
+                acompanamientoNota: "Servicio personalizado. Definimos alcance, duración y siguiente paso contigo.",
+
+                descuentoEntrada: "Coordinamos disponibilidad y te enviamos el enlace de pago.",
+                descuentoEstrategia: "La contratación se define después del diagnóstico.",
+                descuentoAcompanamiento: "El alcance y la inversión final se confirman tras la valoración.",
+
                 sufijoUnica: "sesión única · 50 min",
                 sufijoCompleto: "programa completo",
+
                 revisionCV: "Revisión exprés de CV",
                 feedbackCV: "Feedback detallado en 48h.",
+
                 optimizacionLinkedin: "Optimización de LinkedIn",
                 descLinkedin: "Perfil reescrito para que te encuentren.",
+
                 simulacro: "Simulacro de entrevista",
                 descSimulacro: "Feedback honesto para no repetir errores.",
+
                 negociacion: "Asesoría de negociación salarial",
                 descNegociacion: "Una buena negociación puede valer miles al año.",
-                reservarBtn: "Reservar",
-                agregarCarrito: "Añadir al carrito",
-                carritoTitulo: "Tu carrito",
+
+                carritoTitulo: "Tus servicios seleccionados",
                 carritoVacio: "Tu carrito está vacío.",
                 eliminar: "Eliminar",
                 totalEstimado: "Total estimado",
-                precioVariableAviso: "Incluye servicios con precio variable. El total final se confirma por WhatsApp.",
-                agendarWhatsapp: "Enviar por WhatsApp",
+                carritoNota: "Te confirmaremos disponibilidad y te enviaremos el enlace de pago.",
+                carritoBtn: "Solicitar y coordinar por WhatsApp",
                 vaciarCarrito: "Vaciar carrito",
-                aConsultar: "A consultar",
-                irCalendario: "Ir al calendario",
+
                 descEntrada: "Diagnóstico honesto, claridad sobre cambios urgentes, resumen escrito, sesión 1:1 de 50 min, optimización CV/LinkedIn, plan de acción.",
                 descEstrategia: "3 sesiones 1:1, diagnóstico profundo, optimización CV y LinkedIn, definición de objetivo, plan de búsqueda.",
                 descAcompanamiento: "Todo Estrategia + 2 sesiones/mes, revisión candidaturas, preparación entrevistas, canal mensajes, negociación salarial."
@@ -529,33 +562,43 @@
                 entrada: "Entry · Single session",
                 estrategia: "Strategy Program",
                 acompanamiento: "Total Support",
-                reservar: "Book session",
-                quieroEmpezar: "I want to start",
-                saberMas: "Learn more",
-                descuentoEntrada: "The amount is deducted if you later hire a program.",
-                descuentoEstrategia: "If you already did the single session, it is deducted.",
-                descuentoAcompanamiento: "The previous diagnostic session is deducted.",
+
+                ctaEntrada: "Book and pay",
+                ctaEstrategia: "Book free diagnostic",
+                ctaAcompanamiento: "Chat on WhatsApp",
+                agregarCarrito: "Add to cart",
+
+                entradaNota: "Ideal if you need a focused session for guidance, review or a specific block.",
+                estrategiaNota: "We first assess your situation and confirm whether this program fits your profile.",
+                acompanamientoNota: "Personalized service. We define scope, duration and next step with you.",
+
+                descuentoEntrada: "We will coordinate availability and send you the payment link.",
+                descuentoEstrategia: "The final program is confirmed after the diagnostic session.",
+                descuentoAcompanamiento: "Scope and final investment are confirmed after the assessment.",
+
                 sufijoUnica: "single session · 50 min",
                 sufijoCompleto: "complete program",
+
                 revisionCV: "Express CV Review",
                 feedbackCV: "Detailed feedback in 48h.",
+
                 optimizacionLinkedin: "LinkedIn Optimization",
                 descLinkedin: "Profile rewritten so recruiters find you.",
+
                 simulacro: "Mock Interview",
                 descSimulacro: "Real practice with honest feedback.",
+
                 negociacion: "Salary Negotiation Advice",
                 descNegociacion: "A good negotiation can be worth thousands per year.",
-                reservarBtn: "Book",
-                agregarCarrito: "Add to cart",
-                carritoTitulo: "Your cart",
+
+                carritoTitulo: "Your selected services",
                 carritoVacio: "Your cart is empty.",
                 eliminar: "Remove",
                 totalEstimado: "Estimated total",
-                precioVariableAviso: "Includes variable-price services. The final total will be confirmed on WhatsApp.",
-                agendarWhatsapp: "Send on WhatsApp",
+                carritoNota: "We will confirm availability and send you the payment link.",
+                carritoBtn: "Request and coordinate on WhatsApp",
                 vaciarCarrito: "Empty cart",
-                aConsultar: "To be confirmed",
-                irCalendario: "Go to calendar",
+
                 descEntrada: "Honest diagnosis, clarity on urgent changes, written summary, 50 min 1:1 session, CV/LinkedIn optimization, action plan.",
                 descEstrategia: "3 x 1:1 sessions, in-depth diagnosis, CV and LinkedIn optimization, goal definition, job search plan.",
                 descAcompanamiento: "Everything in Strategy Program + 2 monthly follow-up sessions, application review, interview prep, messaging channel, salary negotiation."
@@ -564,33 +607,43 @@
                 entrada: "Entrada · Sessão única",
                 estrategia: "Programa Estratégia",
                 acompanamiento: "Acompanhamento total",
-                reservar: "Reservar sessão",
-                quieroEmpezar: "Quero começar",
-                saberMas: "Saber mais",
-                descuentoEntrada: "O valor é descontado se depois contratar um programa.",
-                descuentoEstrategia: "Se já fez a sessão única, o valor é descontado.",
-                descuentoAcompanamiento: "A sessão de diagnóstico anterior é descontada.",
+
+                ctaEntrada: "Reservar e pagar",
+                ctaEstrategia: "Reservar diagnóstico gratuito",
+                ctaAcompanamiento: "Falar no WhatsApp",
+                agregarCarrito: "Adicionar ao carrinho",
+
+                entradaNota: "Ideal se você precisa de uma sessão concreta de orientação, revisão ou destravamento.",
+                estrategiaNota: "Primeiro avaliamos sua situação e confirmamos se este programa faz sentido para o seu perfil.",
+                acompanamientoNota: "Serviço personalizado. Definimos escopo, duração e próximo passo com você.",
+
+                descuentoEntrada: "Vamos coordenar a disponibilidade e enviar o link de pagamento.",
+                descuentoEstrategia: "A contratação final é definida depois do diagnóstico.",
+                descuentoAcompanamiento: "Escopo e investimento final são confirmados após a avaliação.",
+
                 sufijoUnica: "sessão única · 50 min",
                 sufijoCompleto: "programa completo",
+
                 revisionCV: "Revisão expressa de CV",
                 feedbackCV: "Feedback detalhado em 48h.",
+
                 optimizacionLinkedin: "Otimização do LinkedIn",
                 descLinkedin: "Perfil reescrito para que recrutadores te encontrem.",
+
                 simulacro: "Simulação de entrevista",
                 descSimulacro: "Prática real com feedback honesto.",
+
                 negociacion: "Consultoria de negociação salarial",
                 descNegociacion: "Uma boa negociação pode valer milhares por ano.",
-                reservarBtn: "Reservar",
-                agregarCarrito: "Adicionar ao carrinho",
-                carritoTitulo: "Seu carrinho",
+
+                carritoTitulo: "Seus serviços selecionados",
                 carritoVacio: "Seu carrinho está vazio.",
                 eliminar: "Remover",
                 totalEstimado: "Total estimado",
-                precioVariableAviso: "Inclui serviços com preço variável. O total final será confirmado pelo WhatsApp.",
-                agendarWhatsapp: "Enviar pelo WhatsApp",
+                carritoNota: "Confirmaremos a disponibilidade e enviaremos o link de pagamento.",
+                carritoBtn: "Solicitar e coordenar pelo WhatsApp",
                 vaciarCarrito: "Esvaziar carrinho",
-                aConsultar: "A confirmar",
-                irCalendario: "Ir para o calendário",
+
                 descEntrada: "Diagnóstico honesto, clareza sobre mudanças urgentes, resumo escrito, sessão 1:1 de 50 min, otimização de CV/LinkedIn, plano de ação.",
                 descEstrategia: "3 sessões 1:1, diagnóstico profundo, otimização de CV e LinkedIn, definição de objetivo, plano de busca.",
                 descAcompanamiento: "Tudo do Programa Estratégia + 2 sessões/mês de acompanhamento, revisão de candidaturas, preparação para entrevistas, canal de mensagens, negociação salarial."
@@ -641,6 +694,8 @@
 
                 "galizzi-desc": "Ayuda a profesionales que quieren entrar o crecer en Big Tech, especialmente en áreas como Trust & Safety, Content Operations y escalaciones. Con experiencia en Meta, TikTok e iSpot, aporta más de 7 años trabajando en operaciones internacionales de alta exigencia.",
                 "ayala-desc": "Aporto una visión estratégica del mercado y del negocio, combinando experiencia como Account Manager en PayPal y en ventas B2B dentro de sectores como SaaS, fintech, pagos y medios digitales.",
+                "galizzi-btn": "Hablar con Javier Galizzi",
+                "ayala-btn": "Hablar con Javier Ayala",
 
                 "metodologia-titulo": "Cómo trabajamos",
                 "metodologia-sub": "Un proceso claro en seis pasos. Sin improvisación. Menos de 4 semanas para pasar de la confusión al plan.",
@@ -740,6 +795,8 @@
 
                 "galizzi-desc": "Helps professionals who want to enter or grow in Big Tech, especially in areas like Trust & Safety, Content Operations, and escalations. With experience at Meta, TikTok, and iSpot, he brings over 7 years of working in high-demand international operations.",
                 "ayala-desc": "I provide a strategic market and business perspective, combining experience as an Account Manager at PayPal and B2B sales in sectors like SaaS, fintech, payments, and digital media.",
+                "galizzi-btn": "Talk to Javier Galizzi",
+                "ayala-btn": "Talk to Javier Ayala",
 
                 "metodologia-titulo": "How we work",
                 "metodologia-sub": "A clear six-step process. No improvisation. Less than 4 weeks to go from confusion to a plan.",
@@ -839,6 +896,8 @@
 
                 "galizzi-desc": "Ajuda profissionais que desejam entrar ou crescer em Big Tech, especialmente em áreas como Trust & Safety, Content Operations e escalações. Com experiência em Meta, TikTok e iSpot, contribui com mais de 7 anos trabalhando em operações internacionais de alta exigência.",
                 "ayala-desc": "Ofereço uma visão estratégica do mercado e dos negócios, combinando experiência como Account Manager na PayPal e vendas B2B em setores como SaaS, fintech, pagamentos e mídia digital.",
+                "galizzi-btn": "Falar com Javier Galizzi",
+                "ayala-btn": "Falar com Javier Ayala",
 
                 "metodologia-titulo": "Como trabalhamos",
                 "metodologia-sub": "Um processo claro em seis passos. Sem improvisação. Menos de 4 semanas para sair da confusão ao plano.",
@@ -917,11 +976,13 @@
             }
         };
 
-        const regionLabels = {
-            es: { ie: "Irlanda / UK", es: "España", latam: "Latinoamérica" },
-            en: { ie: "Ireland / UK", es: "Spain", latam: "Latin America" },
-            pt: { ie: "Irlanda / UK", es: "Espanha", latam: "América Latina" }
-        };
+        function getRegionLabel(region) {
+            return regionLabels[currentLang]?.[region] || region;
+        }
+
+        function getPriceText(key) {
+            return preciosTexts[currentLang]?.[key] || preciosTexts.es[key] || key;
+        }
 
         function persistCart() {
             localStorage.setItem("css_cart", JSON.stringify(cart));
@@ -933,25 +994,14 @@
             if (el) el.textContent = count;
         }
 
-        function getCartText(key) {
-            return preciosTexts[currentLang]?.[key] || preciosTexts.es[key] || key;
-        }
-
-        function getRegionLabel(region) {
-            return regionLabels[currentLang]?.[region] || region;
-        }
-
         function parsePriceToNumber(priceLabel) {
-            if (!priceLabel) return null;
-            if (priceLabel.includes("–") || priceLabel.includes("-")) return null;
-
+            if (!priceLabel) return 0;
             const normalized = priceLabel
                 .replace(/[^\d,.\-]/g, "")
                 .replace(/\./g, "")
                 .replace(",", ".");
-
             const value = Number(normalized);
-            return Number.isFinite(value) ? value : null;
+            return Number.isFinite(value) ? value : 0;
         }
 
         function formatEuro(value) {
@@ -963,6 +1013,64 @@
                     maximumFractionDigits: 0
                 }
             ).format(value);
+        }
+
+        function openBookingCalendar() {
+            window.open(BOOKING_URL, "_blank");
+        }
+
+        function openWhatsApp(number, message) {
+            const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+            window.open(url, "_blank");
+        }
+
+        function getEntryMessage(region) {
+            const price = preciosData[region].entrada.precio;
+            const regionName = getRegionLabel(region);
+
+            return {
+                es: `Hola Javier, quiero reservar una sesión puntual (${regionName}). He visto el precio de ${price}. Quiero coordinar disponibilidad y recibir el enlace de pago.`,
+                en: `Hi Javier, I want to book a single session (${regionName}). I saw the price is ${price}. I would like to coordinate availability and receive the payment link.`,
+                pt: `Olá Javier, quero reservar uma sessão pontual (${regionName}). Vi o preço de ${price}. Quero coordenar a disponibilidade e receber o link de pagamento.`
+            }[currentLang];
+        }
+
+        function getAcompanamientoMessage(region) {
+            const regionName = getRegionLabel(region);
+
+            return {
+                es: `Hola Javier, estoy interesado/a en el servicio de Acompañamiento total (${regionName}). Quiero más información sobre alcance, disponibilidad y siguiente paso.`,
+                en: `Hi Javier, I am interested in the Total Support service (${regionName}). I would like more information about scope, availability and next steps.`,
+                pt: `Olá Javier, tenho interesse no serviço de Acompanhamento total (${regionName}). Quero mais informações sobre escopo, disponibilidade e próximo passo.`
+            }[currentLang];
+        }
+
+        function contactEntry(region) {
+            openWhatsApp(AYALA_NUMBER, getEntryMessage(region));
+        }
+
+        function contactAcompanamiento(region) {
+            openWhatsApp(AYALA_NUMBER, getAcompanamientoMessage(region));
+        }
+
+        function contactConsultant(type) {
+            if (type === "galizzi") {
+                const msg = {
+                    es: "Hola Javier, estoy interesado/a en orientación para roles de Big Tech, Trust & Safety o Content Operations y quiero más información sobre vuestros servicios.",
+                    en: "Hi Javier, I am interested in guidance for Big Tech, Trust & Safety or Content Operations roles and would like more information about your services.",
+                    pt: "Olá Javier, tenho interesse em orientação para vagas de Big Tech, Trust & Safety ou Content Operations e quero mais informações sobre os serviços."
+                }[currentLang];
+                openWhatsApp(GALIZZI_NUMBER, msg);
+                return;
+            }
+
+            const msg = {
+                es: "Hola Javier, estoy interesado/a en orientación de carrera y quiero más información sobre vuestros servicios.",
+                en: "Hi Javier, I am interested in career guidance and would like more information about your services.",
+                pt: "Olá Javier, tenho interesse em orientação de carreira e quero mais informações sobre os serviços."
+            }[currentLang];
+
+            openWhatsApp(AYALA_NUMBER, msg);
         }
 
         function toggleCart(forceOpen) {
@@ -1022,42 +1130,30 @@
             const totalEl = document.getElementById("cart-total");
             const titleEl = document.getElementById("cart-title");
             const totalLabelEl = document.getElementById("cart-total-label");
-            const disclaimerEl = document.getElementById("cart-disclaimer");
-            const waBtn = document.getElementById("cart-checkout-btn");
+            const noteEl = document.getElementById("cart-note");
+            const checkoutBtn = document.getElementById("cart-checkout-btn");
             const clearBtn = document.getElementById("cart-clear-btn");
-            const calBtn = document.getElementById("cart-calendar-btn");
 
-            if (titleEl) titleEl.textContent = getCartText("carritoTitulo");
-            if (totalLabelEl) totalLabelEl.textContent = getCartText("totalEstimado");
-            if (waBtn) waBtn.textContent = getCartText("agendarWhatsapp");
-            if (clearBtn) clearBtn.textContent = getCartText("vaciarCarrito");
-            if (calBtn) calBtn.textContent = getCartText("irCalendario");
+            if (titleEl) titleEl.textContent = getPriceText("carritoTitulo");
+            if (totalLabelEl) totalLabelEl.textContent = getPriceText("totalEstimado");
+            if (noteEl) noteEl.textContent = getPriceText("carritoNota");
+            if (checkoutBtn) checkoutBtn.textContent = getPriceText("carritoBtn");
+            if (clearBtn) clearBtn.textContent = getPriceText("vaciarCarrito");
 
             if (!itemsEl || !totalEl) return;
 
             if (cart.length === 0) {
-                itemsEl.innerHTML = `<p class="text-center text-gray-500 py-12">${getCartText("carritoVacio")}</p>`;
+                itemsEl.innerHTML = `<p class="text-center text-gray-500 py-12">${getPriceText("carritoVacio")}</p>`;
                 totalEl.textContent = formatEuro(0);
-
-                if (disclaimerEl) {
-                    disclaimerEl.textContent = "";
-                    disclaimerEl.classList.add("hidden");
-                }
                 return;
             }
 
             let total = 0;
-            let hasVariablePrice = false;
 
             itemsEl.innerHTML = cart.map(item => {
-                const name = preciosTexts[currentLang]?.[item.labelKey] || preciosTexts.es[item.labelKey] || item.labelKey;
+                total += item.numericPrice * item.qty;
+                const name = getPriceText(item.labelKey);
                 const regionName = getRegionLabel(item.region);
-
-                if (item.numericPrice !== null) {
-                    total += item.numericPrice * item.qty;
-                } else {
-                    hasVariablePrice = true;
-                }
 
                 return `
                     <div class="border border-gray-200 rounded-xl p-4 mb-3">
@@ -1068,69 +1164,41 @@
                                 <p class="text-sm text-indigo-600 mt-1">${item.priceLabel}${item.qty > 1 ? ` × ${item.qty}` : ""}</p>
                             </div>
                             <button type="button" onclick="removeFromCart('${item.id}')" class="text-sm text-red-600 hover:text-red-700">
-                                ${getCartText("eliminar")}
+                                ${getPriceText("eliminar")}
                             </button>
                         </div>
                     </div>
                 `;
             }).join("");
 
-            totalEl.textContent = hasVariablePrice
-                ? (total > 0 ? `${formatEuro(total)} +` : getCartText("aConsultar"))
-                : formatEuro(total);
-
-            if (disclaimerEl) {
-                disclaimerEl.textContent = hasVariablePrice ? getCartText("precioVariableAviso") : "";
-                disclaimerEl.classList.toggle("hidden", !hasVariablePrice);
-            }
+            totalEl.textContent = formatEuro(total);
         }
 
-        function buildWhatsAppMessage() {
+        function buildCartWhatsAppMessage() {
             const header = {
-                es: "Hola, quiero reservar estos servicios:",
+                es: "Hola, quiero contratar estos servicios:",
                 en: "Hi, I want to book these services:",
-                pt: "Olá, quero reservar estes serviços:"
+                pt: "Olá, quero contratar estes serviços:"
             }[currentLang];
 
             const footer = {
-                es: "También quiero agendar mi cita. ¿Qué disponibilidad tenéis?",
-                en: "I also want to schedule my session. What availability do you have?",
-                pt: "Também quero agendar minha sessão. Que disponibilidade vocês têm?"
+                es: "También quiero coordinar disponibilidad y recibir el enlace de pago.",
+                en: "I also want to coordinate availability and receive the payment link.",
+                pt: "Também quero coordenar a disponibilidade e receber o link de pagamento."
             }[currentLang];
 
             const lines = cart.map(item => {
-                const name = preciosTexts[currentLang]?.[item.labelKey] || preciosTexts.es[item.labelKey] || item.labelKey;
+                const name = getPriceText(item.labelKey);
                 return `- ${name} (${getRegionLabel(item.region)}) — ${item.priceLabel}${item.qty > 1 ? ` x${item.qty}` : ""}`;
             });
 
-            let total = 0;
-            let hasVariable = false;
-
-            cart.forEach(item => {
-                if (item.numericPrice === null) {
-                    hasVariable = true;
-                } else {
-                    total += item.numericPrice * item.qty;
-                }
-            });
-
-            const totalLine = hasVariable
-                ? `\n${getCartText("totalEstimado")}: ${total > 0 ? `${formatEuro(total)} +` : getCartText("aConsultar")}`
-                : `\n${getCartText("totalEstimado")}: ${formatEuro(total)}`;
-
-            return `${header}\n\n${lines.join("\n")}${totalLine}\n\n${footer}`;
+            const total = cart.reduce((sum, item) => sum + (item.numericPrice * item.qty), 0);
+            return `${header}\n\n${lines.join("\n")}\n\n${getPriceText("totalEstimado")}: ${formatEuro(total)}\n\n${footer}`;
         }
 
-        function proceedToBooking() {
+        function proceedToCartWhatsApp() {
             if (!cart.length) return;
-
-            const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildWhatsAppMessage())}`;
-            window.open(waUrl, "_blank");
-        }
-
-        function openCalendar() {
-            if (!cart.length) return;
-            window.open(BOOKING_URL, "_blank");
+            openWhatsApp(AYALA_NUMBER, buildCartWhatsAppMessage());
         }
 
         function cambiarPrecio(region) {
@@ -1145,8 +1213,13 @@
                         <h3 class="text-xl font-bold text-indigo-600">${txt.entrada}</h3>
                         <p class="text-2xl font-bold my-2">${data.entrada.precio}<span class="text-sm font-normal"> / ${txt.sufijoUnica}</span></p>
                         <p class="text-gray-600">${txt.descEntrada}</p>
-                        <button type="button" onclick="addServiceToCart('entrada', '${data.entrada.precio}', '${region}')" class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm transition-fast">
-                            ${txt.agregarCarrito}
+                        <p class="text-sm text-gray-500 mt-3">${txt.entradaNota}</p>
+                        <button
+                            type="button"
+                            onclick="contactEntry('${region}')"
+                            class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-fast"
+                        >
+                            ${txt.ctaEntrada}
                         </button>
                         <p class="text-xs text-gray-400 mt-2">${txt.descuentoEntrada}</p>
                     </div>
@@ -1155,8 +1228,13 @@
                         <h3 class="text-xl font-bold text-indigo-600">⭐ ${txt.estrategia}</h3>
                         <p class="text-2xl font-bold my-2">${data.estrategia.precio}<span class="text-sm font-normal"> / ${txt.sufijoCompleto}</span></p>
                         <p class="text-gray-600">${txt.descEstrategia}</p>
-                        <button type="button" onclick="addServiceToCart('estrategia', '${data.estrategia.precio}', '${region}')" class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm transition-fast">
-                            ${txt.agregarCarrito}
+                        <p class="text-sm text-gray-500 mt-3">${txt.estrategiaNota}</p>
+                        <button
+                            type="button"
+                            onclick="openBookingCalendar()"
+                            class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-fast"
+                        >
+                            ${txt.ctaEstrategia}
                         </button>
                         <p class="text-xs text-gray-400 mt-2">${txt.descuentoEstrategia}</p>
                     </div>
@@ -1165,8 +1243,13 @@
                         <h3 class="text-xl font-bold text-indigo-600">${txt.acompanamiento}</h3>
                         <p class="text-2xl font-bold my-2">${data.acompanamiento.precio}<span class="text-sm font-normal"> / ${txt.sufijoCompleto}</span></p>
                         <p class="text-gray-600">${txt.descAcompanamiento}</p>
-                        <button type="button" onclick="addServiceToCart('acompanamiento', '${data.acompanamiento.precio}', '${region}')" class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm transition-fast">
-                            ${txt.agregarCarrito}
+                        <p class="text-sm text-gray-500 mt-3">${txt.acompanamientoNota}</p>
+                        <button
+                            type="button"
+                            onclick="contactAcompanamiento('${region}')"
+                            class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-fast"
+                        >
+                            ${txt.ctaAcompanamiento}
                         </button>
                         <p class="text-xs text-gray-400 mt-2">${txt.descuentoAcompanamiento}</p>
                     </div>
@@ -1177,7 +1260,11 @@
                         <h4 class="font-bold text-lg">${txt.revisionCV}</h4>
                         <p class="text-2xl font-bold text-indigo-600 my-2">${data.puntuales.cv}</p>
                         <p class="text-gray-500 text-sm mb-3">${txt.feedbackCV}</p>
-                        <button type="button" onclick="addServiceToCart('revisionCV', '${data.puntuales.cv}', '${region}')" class="inline-block bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold px-4 py-2 rounded-lg text-sm transition-fast w-full">
+                        <button
+                            type="button"
+                            onclick="addServiceToCart('revisionCV', '${data.puntuales.cv}', '${region}')"
+                            class="inline-block bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold px-4 py-2 rounded-lg text-sm transition-fast w-full"
+                        >
                             ${txt.agregarCarrito}
                         </button>
                     </div>
@@ -1186,7 +1273,11 @@
                         <h4 class="font-bold text-lg">${txt.optimizacionLinkedin}</h4>
                         <p class="text-2xl font-bold text-indigo-600 my-2">${data.puntuales.linkedin}</p>
                         <p class="text-gray-500 text-sm mb-3">${txt.descLinkedin}</p>
-                        <button type="button" onclick="addServiceToCart('optimizacionLinkedin', '${data.puntuales.linkedin}', '${region}')" class="inline-block bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold px-4 py-2 rounded-lg text-sm transition-fast w-full">
+                        <button
+                            type="button"
+                            onclick="addServiceToCart('optimizacionLinkedin', '${data.puntuales.linkedin}', '${region}')"
+                            class="inline-block bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold px-4 py-2 rounded-lg text-sm transition-fast w-full"
+                        >
                             ${txt.agregarCarrito}
                         </button>
                     </div>
@@ -1195,7 +1286,11 @@
                         <h4 class="font-bold text-lg">${txt.simulacro}</h4>
                         <p class="text-2xl font-bold text-indigo-600 my-2">${data.puntuales.entrevista}</p>
                         <p class="text-gray-500 text-sm mb-3">${txt.descSimulacro}</p>
-                        <button type="button" onclick="addServiceToCart('simulacro', '${data.puntuales.entrevista}', '${region}')" class="inline-block bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold px-4 py-2 rounded-lg text-sm transition-fast w-full">
+                        <button
+                            type="button"
+                            onclick="addServiceToCart('simulacro', '${data.puntuales.entrevista}', '${region}')"
+                            class="inline-block bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold px-4 py-2 rounded-lg text-sm transition-fast w-full"
+                        >
                             ${txt.agregarCarrito}
                         </button>
                     </div>
@@ -1204,7 +1299,11 @@
                         <h4 class="font-bold text-lg">${txt.negociacion}</h4>
                         <p class="text-2xl font-bold text-indigo-600 my-2">${data.puntuales.negociacion}</p>
                         <p class="text-gray-500 text-sm mb-3">${txt.descNegociacion}</p>
-                        <button type="button" onclick="addServiceToCart('negociacion', '${data.puntuales.negociacion}', '${region}')" class="inline-block bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold px-4 py-2 rounded-lg text-sm transition-fast w-full">
+                        <button
+                            type="button"
+                            onclick="addServiceToCart('negociacion', '${data.puntuales.negociacion}', '${region}')"
+                            class="inline-block bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold px-4 py-2 rounded-lg text-sm transition-fast w-full"
+                        >
                             ${txt.agregarCarrito}
                         </button>
                     </div>
@@ -1239,7 +1338,7 @@
             const elements = [
                 "hero-sub", "hero-title", "hero-desc", "hero-btn", "hero-btn2", "hero-note",
                 "quienes-titulo", "quienes-text1", "quienes-text2", "quienes-cita",
-                "galizzi-desc", "ayala-desc",
+                "galizzi-desc", "ayala-desc", "galizzi-btn", "ayala-btn",
                 "metodologia-titulo", "metodologia-sub",
                 "paso1-tit", "paso1-desc", "paso2-tit", "paso2-desc", "paso3-tit", "paso3-desc",
                 "paso4-tit", "paso4-desc", "paso5-tit", "paso5-desc", "paso6-tit", "paso6-desc",
