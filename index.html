@@ -1,792 +1,1408 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Career Strategy Studio – Tu copiloto de carrera</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    :root {
-      --primary: #4b6bfb;
-      --primary-dark: #3247b8;
-      --bg: #050816;
-      --bg-alt: #0b1020;
-      --text: #f5f5f7;
-      --muted: #a0a3b1;
-      --accent: #22c55e;
-      --card: #111827;
-      --border: #1f2937;
-      --radius: 12px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    body {
-      background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(16px);
-      background: rgba(2, 6, 23, 0.85);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
-    }
-
-    .nav {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 1rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-    }
-
-    .logo-mark {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      background: conic-gradient(from 180deg, #4b6bfb, #22c55e, #ec4899, #4b6bfb);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 1.5rem;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .nav-links a:hover {
-      color: var(--text);
-    }
-
-    .nav-actions {
-      display: flex;
-      gap: 0.75rem;
-      align-items: center;
-    }
-
-    .btn {
-      border-radius: 999px;
-      padding: 0.55rem 1.2rem;
-      font-size: 0.9rem;
-      border: 1px solid transparent;
-      cursor: pointer;
-      transition: all 0.18s ease-out;
-      background: transparent;
-      color: var(--text);
-    }
-
-    .btn-outline {
-      border-color: rgba(148, 163, 184, 0.5);
-      color: var(--muted);
-    }
-
-    .btn-outline:hover {
-      border-color: var(--text);
-      color: var(--text);
-      background: rgba(15, 23, 42, 0.8);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      border: none;
-      color: white;
-      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 16px 40px rgba(37, 99, 235, 0.55);
-    }
-
-    main {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 2.5rem 1.5rem 4rem;
-    }
-
-    /* Hero */
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      gap: 2.5rem;
-      align-items: center;
-      padding: 2.5rem 0 3rem;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.2rem 0.7rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-bottom: 1rem;
-      background: rgba(15, 23, 42, 0.7);
-    }
-
-    .badge-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
-    }
-
-    .hero h1 {
-      font-size: clamp(2.4rem, 3.4vw, 3.2rem);
-      line-height: 1.1;
-      margin-bottom: 1rem;
-    }
-
-    .hero h1 span {
-      background: linear-gradient(135deg, #4b6bfb, #22c55e);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hero-subtitle {
-      color: var(--muted);
-      font-size: 0.98rem;
-      max-width: 32rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-cta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-note {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .hero-metrics {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      margin-top: 1rem;
-    }
-
-    .metric {
-      min-width: 120px;
-    }
-
-    .metric strong {
-      display: block;
-      font-size: 1.1rem;
-    }
-
-    .metric span {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .hero-card {
-      background: radial-gradient(circle at top, #1f2937 0, #020617 60%);
-      border-radius: 24px;
-      padding: 1.5rem;
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.9);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at top, rgba(59, 130, 246, 0.25), transparent 60%);
-      opacity: 0.7;
-      pointer-events: none;
-    }
-
-    .hero-card-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    .pill {
-      padding: 0.15rem 0.6rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      font-size: 0.7rem;
-    }
-
-    .hero-card-title {
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .hero-card-sub {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
-
-    .hero-card-list {
-      list-style: none;
-      margin-bottom: 1.2rem;
-    }
-
-    .hero-card-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-      font-size: 0.8rem;
-      margin-bottom: 0.4rem;
-      color: var(--muted);
-    }
-
-    .hero-card-list li span {
-      color: var(--accent);
-      font-size: 0.9rem;
-      margin-top: 0.1rem;
-    }
-
-    .hero-card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    .avatar-group {
-      display: flex;
-      align-items: center;
-    }
-
-    .avatar {
-      width: 22px;
-      height: 22px;
-      border-radius: 999px;
-      border: 1px solid #020617;
-      background: linear-gradient(135deg, #4b6bfb, #22c55e);
-      margin-left: -6px;
-    }
-
-    .avatar:first-child {
-      margin-left: 0;
-    }
-
-    /* Sections */
-    section {
-      margin-top: 3.5rem;
-    }
-
-    .section-label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      margin-bottom: 0.4rem;
-    }
-
-    .section-title {
-      font-size: 1.6rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .section-subtitle {
-      font-size: 0.9rem;
-      color: var(--muted);
-      max-width: 32rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.5rem;
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      padding: 1.1rem 1.1rem 1.2rem;
-      font-size: 0.9rem;
-    }
-
-    .card h3 {
-      font-size: 1rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .card p {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    .pill-small {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.15rem 0.5rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      font-size: 0.7rem;
-      color: var(--muted);
-      margin-bottom: 0.4rem;
-    }
-
-    /* Testimonials */
-    .testimonials {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.2rem;
-    }
-
-    .testimonial {
-      background: var(--card);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      padding: 1rem;
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    .testimonial strong {
-      display: block;
-      margin-top: 0.6rem;
-      color: var(--text);
-      font-size: 0.85rem;
-    }
-
-    /* FAQ */
-    .faq {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1.2rem;
-    }
-
-    .faq-item {
-      background: var(--card);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      padding: 1rem;
-      font-size: 0.85rem;
-    }
-
-    .faq-item h3 {
-      font-size: 0.95rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .faq-item p {
-      color: var(--muted);
-    }
-
-    /* Footer */
-    footer {
-      border-top: 1px solid rgba(148, 163, 184, 0.25);
-      margin-top: 3rem;
-      padding: 2rem 1.5rem 2.5rem;
-      background: rgba(2, 6, 23, 0.9);
-    }
-
-    .footer-inner {
-      max-width: 1120px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 2rem;
-      font-size: 0.85rem;
-    }
-
-    .footer-title {
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .footer-text {
-      color: var(--muted);
-      max-width: 24rem;
-      margin-bottom: 1rem;
-    }
-
-    .footer-links h4 {
-      font-size: 0.85rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .footer-links ul {
-      list-style: none;
-      color: var(--muted);
-    }
-
-    .footer-links li {
-      margin-bottom: 0.25rem;
-    }
-
-    .footer-links a:hover {
-      color: var(--text);
-    }
-
-    .footer-bottom {
-      max-width: 1120px;
-      margin: 1.5rem auto 0;
-      font-size: 0.75rem;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .hero-card {
-        order: -1;
-      }
-      .grid-3 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      .testimonials {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      .faq {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .footer-inner {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 640px) {
-      .nav-links {
-        display: none;
-      }
-      .grid-3,
-      .testimonials {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      main {
-        padding-inline: 1.1rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Career Strategy Studio | Consultoría para hispanohablantes en Europa</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="icon" href="img/logo.png" type="image/png" />
+
+    <style>
+        html { scroll-behavior: smooth; }
+        .transition-fast { transition: all 0.2s ease; }
+        .tab-active { background-color: #4f46e5; color: white; }
+        .tab-inactive { background-color: #e5e7eb; color: #374151; }
+    </style>
 </head>
-<body>
-  <header>
-    <div class="nav">
-      <div class="logo">
-        <div class="logo-mark">CS</div>
-        <span>Career Strategy Studio</span>
-      </div>
-      <nav class="nav-links">
-        <a href="#features">Servicios</a>
-        <a href="#process">Cómo funciona</a>
-        <a href="#testimonials">Resultados</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-      <div class="nav-actions">
-        <button class="btn btn-outline">Iniciar sesión</button>
-        <button class="btn btn-primary">Reserva una sesión</button>
-      </div>
-    </div>
-  </header>
+<body class="bg-white text-gray-800">
 
-  <main>
-    <!-- HERO -->
-    <section class="hero">
-      <div>
-        <div class="badge">
-          <span class="badge-dot"></span>
-          <span>Tu copiloto estratégico de carrera</span>
+    <!-- Navegación -->
+    <nav class="border-b border-gray-200 bg-white/90 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <img src="img/logo.png" alt="Logo" class="h-20 w-auto">
+
+                <div class="hidden md:flex space-x-8">
+                    <a href="#nosotros" data-i18n="nav-nosotros" class="text-gray-600 hover:text-indigo-600">Nosotros</a>
+                    <a href="#metodologia" data-i18n="nav-metodologia" class="text-gray-600 hover:text-indigo-600">Metodología</a>
+                    <a href="#servicios-precios" data-i18n="nav-servicios" class="text-gray-600 hover:text-indigo-600">Servicios</a>
+                    <a href="#precios" data-i18n="nav-precios" class="text-gray-600 hover:text-indigo-600">Precios</a>
+                    <a href="#testimonios" data-i18n="nav-testimonios" class="text-gray-600 hover:text-indigo-600">Testimonios</a>
+                    <a href="#faq" data-i18n="nav-faq" class="text-gray-600 hover:text-indigo-600">FAQ</a>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button onclick="cambiarIdioma('es')" id="btn-es" class="px-2 py-1 rounded text-sm font-semibold bg-indigo-600 text-white">🇪🇸 ES</button>
+                    <button onclick="cambiarIdioma('en')" id="btn-en" class="px-2 py-1 rounded text-sm font-semibold bg-gray-200 text-gray-700">🇬🇧 EN</button>
+                    <button onclick="cambiarIdioma('pt')" id="btn-pt" class="px-2 py-1 rounded text-sm font-semibold bg-gray-200 text-gray-700">🇧🇷 PT</button>
+
+                    <button
+                        type="button"
+                        onclick="toggleCart()"
+                        aria-label="Abrir carrito"
+                        class="relative ml-1 p-2 rounded-lg hover:bg-gray-100 transition-fast"
+                    >
+                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-pink-500 text-white text-[10px] font-bold min-w-[18px] h-[18px] px-1 flex items-center justify-center rounded-full">0</span>
+                    </button>
+                </div>
+            </div>
         </div>
-        <h1>
-          Deja de buscar solo.<br />
-          <span>Diseña tu carrera con estrategia.</span>
+    </nav>
+
+    <!-- Hero -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center">
+        <p id="hero-sub" class="text-sm uppercase tracking-wider text-indigo-600 font-semibold mb-4">
+            Consultoría de carrera para hispanohablantes en Europa
+        </p>
+
+        <h1 id="hero-title" class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Tu carrera merece una <span class="text-indigo-600">estrategia clara.</span><br>
+            Nosotros te ayudamos a construirla.
         </h1>
-        <p class="hero-subtitle">
-          Career Strategy Studio combina análisis de tu perfil, narrativa profesional y tácticas de mercado
-          para que pases de “enviar CVs” a generar oportunidades reales: entrevistas, ofertas y claridad de rumbo.
+
+        <p id="hero-desc" class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+            Somos una consultoría especializada en estrategia de carrera para profesionales hispanohablantes en Europa.
+            Analizamos tu perfil, definimos un objetivo realista y diseñamos un plan de acción para que avances con confianza.
         </p>
-        <div class="hero-cta">
-          <button class="btn btn-primary">Empezar con una sesión estratégica</button>
-          <button class="btn btn-outline">Ver ejemplos de CV y perfiles</button>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+                id="hero-btn"
+                type="button"
+                onclick="openBookingCalendar()"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg inline-flex items-center justify-center gap-2 transition-fast"
+            >
+                <i class="fas fa-calendar-alt"></i> Reservar sesión de diagnóstico gratuita
+            </button>
+
+            <a
+                href="#precios"
+                id="hero-btn2"
+                class="border border-gray-300 hover:border-indigo-300 text-gray-700 hover:text-indigo-600 font-semibold py-3 px-6 rounded-lg inline-flex items-center justify-center gap-2 transition-fast"
+            >
+                Ver servicios y precios <i class="fas fa-arrow-right"></i>
+            </a>
         </div>
-        <p class="hero-note">
-          En menos de 7 días puedes tener: CV estratégico, perfil de LinkedIn alineado y un plan de acción concreto.
+
+        <p id="hero-note" class="text-sm text-gray-500 mt-4">
+            50 minutos · Sin compromiso · Para saber exactamente qué está fallando.
         </p>
-        <div class="hero-metrics">
-          <div class="metric">
-            <strong>3× más entrevistas</strong>
-            <span>cuando se aplica la estrategia completa (CV + LinkedIn + outreach).</span>
-          </div>
-          <div class="metric">
-            <strong>+6 años</strong>
-            <span>trabajando con perfiles tech, producto, data, marketing y operaciones.</span>
-          </div>
-          <div class="metric">
-            <strong>Enfoque 1:1</strong>
-            <span>nada de plantillas genéricas: todo se construye sobre tu historia real.</span>
-          </div>
-        </div>
-      </div>
+    </section>
 
-      <aside class="hero-card">
-        <div class="hero-card-inner">
-          <div class="hero-card-header">
-            <span>Panel de estrategia</span>
-            <span class="pill">Vista previa</span>
-          </div>
-          <h2 class="hero-card-title">Mapa de carrera en 3 bloques</h2>
-          <p class="hero-card-sub">
-            Así se ve una sesión dentro de Career Strategy Studio: claridad, foco y acciones concretas.
-          </p>
-          <ul class="hero-card-list">
-            <li>
-              <span>●</span>
-              Diagnóstico de posicionamiento: qué transmite hoy tu CV, LinkedIn y narrativa.
-            </li>
-            <li>
-              <span>●</span>
-              Rediseño estratégico: propuesta de valor, logros clave y enfoque a roles objetivo.
-            </li>
-            <li>
-              <span>●</span>
-              Plan táctico: cómo moverte en el mercado, qué mensajes enviar y a quién.
-            </li>
-          </ul>
-          <div class="hero-card-footer">
-            <div>
-              <div style="font-size:0.8rem;">Profesionales que ya han pasado por el estudio</div>
-              <div class="avatar-group">
-                <div class="avatar"></div>
-                <div class="avatar"></div>
-                <div class="avatar"></div>
-              </div>
+    <!-- Quiénes somos -->
+    <section id="nosotros" class="bg-gray-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 id="quienes-titulo" class="text-3xl font-bold text-center text-gray-900 mb-12">Quiénes somos</h2>
+
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+                <div>
+                    <p id="quienes-text1" class="text-gray-700 mb-4">
+                        <strong>No trabajamos desde la teoría.</strong> Venimos del mercado que te estamos ayudando a entrar.
+                        Hemos trabajado dentro de las empresas que tú quieres entrar. Sabemos cómo piensan los reclutadores,
+                        qué valoran los hiring managers y qué diferencia a los candidatos que avanzan de los que no.
+                        Eso nos permite ayudarte no solo con documentos — sino con criterio.
+                    </p>
+
+                    <p id="quienes-text2" class="text-gray-700">
+                        Trabajamos con la realidad del mercado, con perfiles que necesitan ordenar su carrera y con decisiones
+                        profesionales que tienen impacto real en ingresos, estabilidad y bienestar.
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <p id="quienes-cita" class="italic text-gray-600">
+                        "Dos perspectivas, un mismo objetivo: que entiendas tu valor, lo comuniques bien y te muevas con criterio en el mercado."
+                    </p>
+                </div>
             </div>
-            <div>
-              <div style="font-size:0.8rem; text-align:right;">Tiempo estimado</div>
-              <div style="font-size:0.9rem; font-weight:600; text-align:right;">3 sesiones · 90 min c/u</div>
+        </div>
+    </section>
+
+    <!-- Consultores -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Javier Galizzi -->
+                <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+                    <div class="flex items-center gap-4 mb-4">
+                        <img src="img/javier-galizzi.png" alt="Javier Galizzi" class="w-16 h-16 rounded-full object-cover">
+                        <div>
+                            <h3 class="text-xl font-bold">Javier Galizzi</h3>
+                            <p class="text-indigo-600 font-semibold">Business Enforcement Operations · Meta</p>
+                            <p class="text-indigo-600 text-sm">Trust &amp; Safety · Content Operations</p>
+                            <p class="text-gray-600 text-sm">Disponible para sesiones</p>
+                        </div>
+                    </div>
+
+                    <p id="galizzi-desc" class="text-gray-600">
+                        Ayuda a profesionales que quieren entrar o crecer en Big Tech, especialmente en áreas como Trust &amp; Safety,
+                        Content Operations y escalaciones. Con experiencia en Meta, TikTok e iSpot, aporta más de 7 años trabajando
+                        en operaciones internacionales de alta exigencia.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">Trust &amp; Safety</span>
+                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">Big Tech</span>
+                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">Content Operations</span>
+                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">Escalations</span>
+                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">Career Strategy</span>
+                    </div>
+
+                    <button
+                        id="galizzi-btn"
+                        type="button"
+                        onclick="contactConsultant('galizzi')"
+                        class="mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg transition-fast"
+                    >
+                        Hablar con Javier Galizzi
+                    </button>
+                </div>
+
+                <!-- Javier Ayala -->
+                <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+                    <div class="flex items-center gap-4 mb-4">
+                        <img src="img/javier-ayala.png" alt="Javier Ayala" class="w-16 h-16 rounded-full object-cover">
+                        <div>
+                            <h3 class="text-xl font-bold">Javier Ayala</h3>
+                            <p class="text-indigo-600 font-semibold">Account Manager · PayPal</p>
+                            <p class="text-indigo-600 text-sm">Coach de carrera en SaaS &amp; Fintech</p>
+                            <p class="text-gray-600 text-sm">Disponible para sesiones</p>
+                        </div>
+                    </div>
+
+                    <p id="ayala-desc" class="text-gray-600">
+                        Aporto una visión estratégica del mercado y del negocio, combinando experiencia como Account Manager en PayPal
+                        y en ventas B2B dentro de sectores como SaaS, fintech, pagos y medios digitales.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">SaaS &amp; Fintech</span>
+                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">Ventas B2B</span>
+                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">Account Management</span>
+                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">Coaching de carrera</span>
+                    </div>
+
+                    <button
+                        id="ayala-btn"
+                        type="button"
+                        onclick="contactConsultant('ayala')"
+                        class="mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg transition-fast"
+                    >
+                        Hablar con Javier Ayala
+                    </button>
+                </div>
             </div>
-          </div>
         </div>
-      </aside>
     </section>
 
-    <!-- FEATURES / SERVICIOS -->
-    <section id="features">
-      <div class="section-label">Servicios</div>
-      <h2 class="section-title">Lo que trabajamos dentro de Career Strategy Studio</h2>
-      <p class="section-subtitle">
-        No es solo “arreglar el CV”. Es alinear tu historia, tu posicionamiento y tu estrategia de búsqueda
-        para que cada movimiento tenga sentido.
-      </p>
+    <!-- Metodología -->
+    <section id="metodologia" class="bg-gray-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 id="metodologia-titulo" class="text-3xl font-bold text-center text-gray-900 mb-4">Cómo trabajamos</h2>
+            <p id="metodologia-sub" class="text-center text-gray-600 mb-12 text-lg">
+                Un proceso claro en seis pasos. Sin improvisación. Menos de 4 semanas para pasar de la confusión al plan.
+            </p>
 
-      <div class="grid-3">
-        <div class="card">
-          <div class="pill-small">CV & Narrativa</div>
-          <h3>CV estratégico y orientado a impacto</h3>
-          <p>
-            Transformamos tu experiencia en un documento que habla el lenguaje de los hiring managers:
-            logros, métricas y claridad de rol objetivo. Optimizado para ATS, pero escrito para humanos.
-          </p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <div class="text-indigo-600 text-3xl font-bold mb-2">01</div>
+                    <h3 id="paso1-tit" class="font-bold text-lg mb-2">Diagnóstico inicial</h3>
+                    <p id="paso1-desc" class="text-gray-500">Entendemos tu situación real, tu trayectoria y lo que quieres conseguir. Antes de proponer nada, escuchamos.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <div class="text-indigo-600 text-3xl font-bold mb-2">02</div>
+                    <h3 id="paso2-tit" class="font-bold text-lg mb-2">Análisis de trayectoria</h3>
+                    <p id="paso2-desc" class="text-gray-500">Revisamos tu experiencia en profundidad para encontrar el valor que tú no ves y que el mercado sí puede valorar.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <div class="text-indigo-600 text-3xl font-bold mb-2">03</div>
+                    <h3 id="paso3-tit" class="font-bold text-lg mb-2">Fortalezas y bloqueos</h3>
+                    <p id="paso3-desc" class="text-gray-500">Identificamos qué te diferencia. También qué te frena. Y trabajamos ambas cosas, no solo la parte positiva.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <div class="text-indigo-600 text-3xl font-bold mb-2">04</div>
+                    <h3 id="paso4-tit" class="font-bold text-lg mb-2">Objetivo profesional claro</h3>
+                    <p id="paso4-desc" class="text-gray-500">Definimos adónde quieres ir y si ese objetivo tiene sentido para tu perfil en el mercado actual. Honestidad por encima de todo.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <div class="text-indigo-600 text-3xl font-bold mb-2">05</div>
+                    <h3 id="paso5-tit" class="font-bold text-lg mb-2">Reposicionamiento del perfil</h3>
+                    <p id="paso5-desc" class="text-gray-500">CV, LinkedIn y discurso profesional orientados a tu objetivo específico — no a un mercado genérico.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <div class="text-indigo-600 text-3xl font-bold mb-2">06</div>
+                    <h3 id="paso6-tit" class="font-bold text-lg mb-2">Plan de acción</h3>
+                    <p id="paso6-desc" class="text-gray-500">Un plan de búsqueda ejecutable con acciones concretas por semana. Y acompañamiento mientras lo pones en marcha.</p>
+                </div>
+            </div>
         </div>
-        <div class="card">
-          <div class="pill-small">LinkedIn & Marca</div>
-          <h3>Perfil que atrae oportunidades</h3>
-          <p>
-            Rediseño de titular, about, experiencia y secciones clave para que tu perfil deje de ser un CV
-            copiado y se convierta en un activo de posicionamiento y networking.
-          </p>
-        </div>
-        <div class="card">
-          <div class="pill-small">Estrategia de búsqueda</div>
-          <h3>Plan de acción en el mercado</h3>
-          <p>
-            Definimos qué roles perseguir, cómo priorizar empresas, qué mensajes enviar y cómo hacer outreach
-            sin sentir que estás “molestando”.
-          </p>
-        </div>
-      </div>
     </section>
 
-    <!-- PROCESS -->
-    <section id="process">
-      <div class="section-label">Proceso</div>
-      <h2 class="section-title">Cómo funciona el estudio</h2>
-      <p class="section-subtitle">
-        Un proceso claro, con entregables concretos. Nada de sesiones eternas sin resultados tangibles.
-      </p>
+    <!-- Qué hacemos -->
+    <section id="servicios-precios" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 id="quehacemos-titulo" class="text-3xl font-bold text-center text-gray-900 mb-4">Qué hacemos</h2>
+            <p id="quehacemos-sub" class="text-center text-gray-600 mb-12 text-lg">Todo lo que necesitas para avanzar con criterio</p>
 
-      <div class="grid-3">
-        <div class="card">
-          <h3>1. Diagnóstico</h3>
-          <p>
-            Revisamos tu CV, LinkedIn, trayectoria y objetivos. Identificamos brechas entre dónde estás y
-            dónde quieres posicionarte.
-          </p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+                <div class="text-center">
+                    <i class="fas fa-chalkboard-user text-indigo-600 text-4xl mb-3"></i>
+                    <h3 id="serv1-tit" class="font-bold">Consultoría de carrera</h3>
+                    <p id="serv1-desc" class="text-gray-500 text-sm">Definimos un objetivo profesional claro y realista.</p>
+                </div>
+
+                <div class="text-center">
+                    <i class="fas fa-file-alt text-indigo-600 text-4xl mb-3"></i>
+                    <h3 id="serv2-tit" class="font-bold">Optimización de CV</h3>
+                    <p id="serv2-desc" class="text-gray-500 text-sm">CV que pasa filtros ATS y comunica valor.</p>
+                </div>
+
+                <div class="text-center">
+                    <i class="fab fa-linkedin text-indigo-600 text-4xl mb-3"></i>
+                    <h3 id="serv3-tit" class="font-bold">Optimización de LinkedIn</h3>
+                    <p id="serv3-desc" class="text-gray-500 text-sm">Perfil que atrae reclutadores.</p>
+                </div>
+
+                <div class="text-center">
+                    <i class="fas fa-comments text-indigo-600 text-4xl mb-3"></i>
+                    <h3 id="serv4-tit" class="font-bold">Preparación de entrevistas</h3>
+                    <p id="serv4-desc" class="text-gray-500 text-sm">Simulacros reales con feedback honesto.</p>
+                </div>
+
+                <div class="text-center">
+                    <i class="fas fa-language text-indigo-600 text-4xl mb-3"></i>
+                    <h3 id="serv5-tit" class="font-bold">Cursos de Inglés</h3>
+                    <p id="serv5-desc" class="text-gray-500 text-sm">Preparación específica para entrevistas y comunicación profesional.</p>
+                </div>
+            </div>
         </div>
-        <div class="card">
-          <h3>2. Rediseño</h3>
-          <p>
-            Trabajamos sobre tu narrativa, logros y propuesta de valor. Construimos CV y perfil alineados a
-            roles y mercados específicos.
-          </p>
-        </div>
-        <div class="card">
-          <h3>3. Estrategia</h3>
-          <p>
-            Definimos un plan de búsqueda: canales, mensajes, ritmo semanal y cómo medir si la estrategia
-            está funcionando.
-          </p>
-        </div>
-      </div>
     </section>
 
-    <!-- TESTIMONIALS -->
-    <section id="testimonials">
-      <div class="section-label">Resultados</div>
-      <h2 class="section-title">Lo que dicen profesionales que ya pasaron por aquí</h2>
-      <p class="section-subtitle">
-        Historias reales de personas que estaban bloqueadas en su búsqueda y ahora tienen claridad, entrevistas
-        y ofertas sobre la mesa.
-      </p>
+    <!-- Antes / Después -->
+    <section class="bg-gray-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 id="cambia-titulo" class="text-3xl font-bold text-center text-gray-900 mb-4">
+                Qué cambia después de trabajar con nosotros
+            </h2>
 
-      <div class="testimonials">
-        <div class="testimonial">
-          “Pasé de enviar CVs sin respuesta a tener 4 procesos abiertos en menos de un mes. Lo que más me ayudó
-          fue entender cómo contar mi experiencia de forma estratégica.”
-          <strong>Product Manager · transición desde consultoría</strong>
+            <p id="cambia-sub" class="text-center text-gray-600 mb-12">
+                No vendemos motivación. Vendemos claridad, estructura y dirección.
+            </p>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200 rounded-xl shadow-sm">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th id="antes-th" class="px-6 py-3 text-left text-gray-700">Antes</th>
+                            <th id="despues-th" class="px-6 py-3 text-left text-gray-700">Después</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b">
+                            <td id="antes1" class="px-6 py-4">"Mando CVs y no sé por qué no responden"</td>
+                            <td id="despues1" class="px-6 py-4">"Sé exactamente qué comunica mi perfil y cómo mejorarlo"</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td id="antes2" class="px-6 py-4">"No tengo claro a qué tipo de trabajo apuntar"</td>
+                            <td id="despues2" class="px-6 py-4">"Tengo un objetivo profesional concreto y realista"</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td id="antes3" class="px-6 py-4">"Busco por intuición, sin saber si lo hago bien"</td>
+                            <td id="despues3" class="px-6 py-4">"Tengo un plan de búsqueda con acciones claras para cada semana"</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td id="antes4" class="px-6 py-4">"Las entrevistas me generan ansiedad y no sé qué falla"</td>
+                            <td id="despues4" class="px-6 py-4">"Llego preparado/a, sé qué van a preguntar y cómo responder"</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td id="antes5" class="px-6 py-4">"Siento que llevo tiempo sin avanzar"</td>
+                            <td id="despues5" class="px-6 py-4">"Empiezo a moverme con dirección y a ver resultados concretos"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p id="cambia-nota" class="text-center text-indigo-600 italic mt-8">
+                No es una transformación mágica. Es el resultado de tener por fin la estructura y el acompañamiento que necesitabas.
+            </p>
         </div>
-        <div class="testimonial">
-          “No era un problema de ‘falta de experiencia’, era un problema de cómo la estaba presentando. El nuevo
-          CV y LinkedIn cambiaron completamente el tipo de mensajes que empecé a recibir.”
-          <strong>Data Analyst · cambio de país</strong>
+    </section>
+
+    <!-- Precios -->
+    <section id="precios" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 id="precios-titulo" class="text-3xl font-bold text-center text-gray-900 mb-4">Servicios y precios</h2>
+            <p id="precios-sub" class="text-center text-gray-600 mb-8">
+                Precios adaptados a cada mercado. Elige tu ubicación para ver las tarifas correctas.
+            </p>
+
+            <div class="flex justify-center gap-4 mb-12 flex-wrap">
+                <button onclick="cambiarPrecio('ie')" id="tab-ie" class="px-6 py-2 rounded-full font-semibold tab-active transition-fast">Irlanda / UK</button>
+                <button onclick="cambiarPrecio('es')" id="tab-es" class="px-6 py-2 rounded-full font-semibold tab-inactive transition-fast">España</button>
+                <button onclick="cambiarPrecio('latam')" id="tab-latam" class="px-6 py-2 rounded-full font-semibold tab-inactive transition-fast">Latinoamérica</button>
+            </div>
+
+            <div id="precios-contenedor" class="space-y-8"></div>
+
+            <div id="precios-nota" class="text-center mt-8 text-gray-500 text-sm">
+                ¿No sabes por cuál empezar? La sesión de diagnóstico es siempre el mejor primer paso.
+            </div>
         </div>
-        <div class="testimonial">
-          “Llegué quemado de entrevistas y rechazo. Salí con un plan claro, mensajes concretos y una narrativa
-          que por fin sentía mía. Eso se nota en cada conversación.”
-          <strong>Senior Marketing · reposicionamiento de rol</strong>
+    </section>
+
+    <!-- Testimonios -->
+    <section id="testimonios" class="bg-gray-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 id="testimonios-titulo" class="text-3xl font-bold text-center text-gray-900 mb-12">
+                Lo que dicen quienes ya trabajaron con nosotros
+            </h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <i class="fas fa-quote-left text-indigo-300 text-2xl mb-3"></i>
+                    <p id="test1-text" class="text-gray-600 mb-4">
+                        "Gracias a su asesoría pude negociar mi salario con confianza y obtuve un aumento significativo."
+                    </p>
+                    <p class="font-bold">Alexandra Castro</p>
+                    <p id="test1-role" class="text-sm text-gray-500">Negociación salarial</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <i class="fas fa-quote-left text-indigo-300 text-2xl mb-3"></i>
+                    <p id="test2-text" class="text-gray-600 mb-4">
+                        "Con su ayuda transformé por completo mi perfil de LinkedIn. Ahora recibo muchas más oportunidades."
+                    </p>
+                    <p class="font-bold">Licel Codeghini</p>
+                    <p id="test2-role" class="text-sm text-gray-500">Optimización de LinkedIn</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <i class="fas fa-quote-left text-indigo-300 text-2xl mb-3"></i>
+                    <p id="test3-text" class="text-gray-600 mb-4">
+                        "El Programa Estrategia me dio claridad total. Conseguí Gerente de Equipo en Securitas Direct Barcelona."
+                    </p>
+                    <p class="font-bold">Nelson Landaeta</p>
+                    <p id="test3-role" class="text-sm text-gray-500">Gerente de Equipo · Securitas Direct</p>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
 
     <!-- FAQ -->
-    <section id="faq">
-      <div class="section-label">FAQ</div>
-      <h2 class="section-title">Preguntas frecuentes</h2>
-      <p class="section-subtitle">
-        Si estás dudando si esto es para ti, probablemente estés aquí.
-      </p>
+    <section id="faq" class="py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 id="faq-titulo" class="text-3xl font-bold text-center text-gray-900 mb-12">Preguntas frecuentes</h2>
 
-      <div class="faq">
-        <div class="faq-item">
-          <h3>¿Para quién es Career Strategy Studio?</h3>
-          <p>
-            Para profesionales que ya tienen experiencia (mid–senior) y sienten que su CV, LinkedIn o estrategia
-            de búsqueda no reflejan realmente su nivel ni su potencial.
-          </p>
+            <div class="space-y-6">
+                <details class="bg-white border border-gray-200 rounded-lg p-4">
+                    <summary id="faq1-q" class="font-semibold cursor-pointer">¿En cuánto tiempo veré resultados?</summary>
+                    <p id="faq1-a" class="text-gray-600 mt-2">
+                        Depende de tu punto de partida y la dedicación, pero muchos clientes ven mejoras en 3-4 semanas con el Programa Estrategia.
+                    </p>
+                </details>
+
+                <details class="bg-white border border-gray-200 rounded-lg p-4">
+                    <summary id="faq2-q" class="font-semibold cursor-pointer">¿Funciona para cualquier sector o solo para Tech?</summary>
+                    <p id="faq2-a" class="text-gray-600 mt-2">
+                        Ayudamos a profesionales de diversos sectores, aunque tenemos especial fortaleza en tecnología, fintech, ventas y operaciones.
+                    </p>
+                </details>
+
+                <details class="bg-white border border-gray-200 rounded-lg p-4">
+                    <summary id="faq3-q" class="font-semibold cursor-pointer">¿Las sesiones son en español?</summary>
+                    <p id="faq3-a" class="text-gray-600 mt-2">
+                        Sí, totalmente en español. También podemos adaptarnos al inglés si lo necesitas.
+                    </p>
+                </details>
+
+                <details class="bg-white border border-gray-200 rounded-lg p-4">
+                    <summary id="faq4-q" class="font-semibold cursor-pointer">¿Qué pasa si no consigo trabajo después del proceso?</summary>
+                    <p id="faq4-a" class="text-gray-600 mt-2">
+                        Te acompañamos con revisiones adicionales y ajustes hasta que logres resultados. No te dejamos solo.
+                    </p>
+                </details>
+            </div>
         </div>
-        <div class="faq-item">
-          <h3>¿Incluye solo CV o también acompañamiento?</h3>
-          <p>
-            Incluye trabajo sobre CV, LinkedIn y sesiones estratégicas donde definimos tu posicionamiento y plan
-            de acción. No es un servicio “solo de redacción”.
-          </p>
-        </div>
-        <div class="faq-item">
-          <h3>¿Cuánto dura el proceso?</h3>
-          <p>
-            El formato estándar son 3 sesiones de 90 minutos, más revisiones asíncronas de CV y perfil. Se puede
-            adaptar según tu urgencia y disponibilidad.
-          </p>
-        </div>
-        <div class="faq-item">
-          <h3>¿Qué necesito tener preparado antes de empezar?</h3>
-          <p>
-            Tu CV actual, enlace de LinkedIn y una idea (aunque sea difusa) de hacia dónde te gustaría ir. El
-            resto lo trabajamos juntos dentro del estudio.
-          </p>
-        </div>
-      </div>
     </section>
-  </main>
 
-  <footer>
-    <div class="footer-inner">
-      <div>
-        <div class="footer-title">Career Strategy Studio</div>
-        <p class="footer-text">
-          Un espacio para profesionales que quieren dejar de improvisar su carrera y empezar a tomar decisiones
-          con estrategia, narrativa y datos.
+    <!-- CTA final -->
+    <section class="bg-indigo-50 py-16 text-center">
+        <div class="max-w-3xl mx-auto px-4">
+            <h2 id="cta-titulo" class="text-3xl font-bold text-gray-900 mb-4">
+                ¿Listo/a para dar el siguiente paso en tu carrera?
+            </h2>
+
+            <p id="cta-desc" class="text-gray-600 mb-8">
+                Reserva una sesión de diagnóstico gratuita de 50 minutos. Sin compromiso — solo una conversación honesta sobre tu situación y cómo podemos ayudarte.
+            </p>
+
+            <button
+                id="cta-btn"
+                type="button"
+                onclick="openBookingCalendar()"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg inline-flex items-center gap-2 transition-fast"
+            >
+                <i class="fas fa-calendar-alt"></i> Reservar sesión de diagnóstico gratuita
+            </button>
+
+            <p id="cta-note" class="text-sm text-gray-500 mt-4">50 minutos · Online · Sin compromiso</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 text-center">
+        <p id="footer-copy" class="mb-2">&copy; 2026 Career Strategy Studio. Todos los derechos reservados.</p>
+        <p id="footer-contact" class="text-sm">
+            careerstrategystudio@gmail.com · Sesiones online Zoom / Google Meet · Disponible para hispanohablantes en toda Europa y toda Latinoamérica
         </p>
-        <button class="btn btn-primary">Quiero una sesión de diagnóstico</button>
-      </div>
-      <div class="footer-links">
-        <h4>Explora</h4>
-        <ul>
-          <li><a href="#features">Servicios</a></li>
-          <li><a href="#process">Proceso</a></li>
-          <li><a href="#testimonials">Resultados</a></li>
-          <li><a href="#faq">FAQ</a></li>
-        </ul>
-      </div>
-      <div class="footer-links">
-        <h4>Contacto</h4>
-        <ul>
-          <li><a href="mailto:tuemail@ejemplo.com">tuemail@ejemplo.com</a></li>
-          <li>LinkedIn: tu perfil</li>
-          <li>Basado en Dublín · sesiones online</li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© <span id="year"></span> Career Strategy Studio. Todos los derechos reservados.</span>
-      <span>Política de privacidad · Términos de servicio</span>
-    </div>
-  </footer>
+    </footer>
 
-  <script>
-    // Año dinámico
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+    <!-- Carrito -->
+    <div id="cart-overlay" class="hidden fixed inset-0 bg-black/40 z-[90]" onclick="toggleCart(false)"></div>
+
+    <aside id="cart-sidebar" class="hidden fixed top-0 right-0 h-full w-full sm:max-w-md bg-white z-[100] shadow-2xl border-l border-gray-200 flex flex-col">
+        <div class="p-6 border-b flex items-center justify-between">
+            <h3 id="cart-title" class="text-2xl font-bold">Tus servicios seleccionados</h3>
+            <button type="button" onclick="toggleCart(false)" class="text-3xl leading-none text-gray-400 hover:text-gray-600">×</button>
+        </div>
+
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6"></div>
+
+        <div class="border-t p-6 space-y-4">
+            <div class="flex items-center justify-between text-lg font-semibold">
+                <span id="cart-total-label">Total estimado</span>
+                <span id="cart-total" class="text-indigo-600">€0</span>
+            </div>
+
+            <p id="cart-note" class="text-xs text-gray-500">
+                Te confirmaremos disponibilidad y te enviaremos el enlace de pago.
+            </p>
+
+            <button id="cart-checkout-btn" type="button" onclick="proceedToCartWhatsApp()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold transition-fast">
+                Solicitar y coordinar por WhatsApp
+            </button>
+
+            <button id="cart-clear-btn" type="button" onclick="clearCart()" class="w-full py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-semibold transition-fast">
+                Vaciar carrito
+            </button>
+        </div>
+    </aside>
+
+    <script>
+        let currentLang = "es";
+        let currentRegion = "ie";
+
+        const BOOKING_URL = "https://calendar.google.com/calendar/u/0?cid=careerstrategystudio@gmail.com";
+        const AYALA_NUMBER = "353876071214";
+        const GALIZZI_NUMBER = "353896083984";
+
+        let cart = JSON.parse(localStorage.getItem("css_cart") || "[]");
+
+        const regionLabels = {
+            es: { ie: "Irlanda / UK", es: "España", latam: "Latinoamérica" },
+            en: { ie: "Ireland / UK", es: "Spain", latam: "Latin America" },
+            pt: { ie: "Irlanda / UK", es: "Espanha", latam: "América Latina" }
+        };
+
+        const preciosTexts = {
+            es: {
+                entrada: "Entrada · Sesión puntual",
+                estrategia: "Programa Estrategia",
+                acompanamiento: "Acompañamiento total",
+
+                ctaEntrada: "Reservar y pagar",
+                ctaEstrategia: "Reservar diagnóstico gratuito",
+                ctaAcompanamiento: "Hablar por WhatsApp",
+                agregarCarrito: "Añadir al carrito",
+
+                entradaNota: "Ideal si necesitas una sesión concreta de orientación, revisión o desbloqueo.",
+                estrategiaNota: "Primero evaluamos tu situación y confirmamos si este programa encaja contigo.",
+                acompanamientoNota: "Servicio personalizado. Definimos alcance, duración y siguiente paso contigo.",
+
+                descuentoEntrada: "Coordinamos disponibilidad y te enviamos el enlace de pago.",
+                descuentoEstrategia: "La contratación se define después del diagnóstico.",
+                descuentoAcompanamiento: "El alcance y la inversión final se confirman tras la valoración.",
+
+                sufijoUnica: "sesión única · 50 min",
+                sufijoCompleto: "programa completo",
+
+                revisionCV: "Revisión exprés de CV",
+                feedbackCV: "Feedback detallado en 48h.",
+
+                optimizacionLinkedin: "Optimización de LinkedIn",
+                descLinkedin: "Perfil reescrito para que te encuentren.",
+
+                simulacro: "Simulacro de entrevista",
+                descSimulacro: "Feedback honesto para no repetir errores.",
+
+                negociacion: "Asesoría de negociación salarial",
+                descNegociacion: "Una buena negociación puede valer miles al año.",
+
+                carritoTitulo: "Tus servicios seleccionados",
+                carritoVacio: "Tu carrito está vacío.",
+                eliminar: "Eliminar",
+                totalEstimado: "Total estimado",
+                carritoNota: "Te confirmaremos disponibilidad y te enviaremos el enlace de pago.",
+                carritoBtn: "Solicitar y coordinar por WhatsApp",
+                vaciarCarrito: "Vaciar carrito",
+
+                descEntrada: "Diagnóstico honesto, claridad sobre cambios urgentes, resumen escrito, sesión 1:1 de 50 min, optimización CV/LinkedIn, plan de acción.",
+                descEstrategia: "3 sesiones 1:1, diagnóstico profundo, optimización CV y LinkedIn, definición de objetivo, plan de búsqueda.",
+                descAcompanamiento: "Todo Estrategia + 2 sesiones/mes, revisión candidaturas, preparación entrevistas, canal mensajes, negociación salarial."
+            },
+            en: {
+                entrada: "Entry · Single session",
+                estrategia: "Strategy Program",
+                acompanamiento: "Total Support",
+
+                ctaEntrada: "Book and pay",
+                ctaEstrategia: "Book free diagnostic",
+                ctaAcompanamiento: "Chat on WhatsApp",
+                agregarCarrito: "Add to cart",
+
+                entradaNota: "Ideal if you need a focused session for guidance, review or a specific block.",
+                estrategiaNota: "We first assess your situation and confirm whether this program fits your profile.",
+                acompanamientoNota: "Personalized service. We define scope, duration and next step with you.",
+
+                descuentoEntrada: "We will coordinate availability and send you the payment link.",
+                descuentoEstrategia: "The final program is confirmed after the diagnostic session.",
+                descuentoAcompanamiento: "Scope and final investment are confirmed after the assessment.",
+
+                sufijoUnica: "single session · 50 min",
+                sufijoCompleto: "complete program",
+
+                revisionCV: "Express CV Review",
+                feedbackCV: "Detailed feedback in 48h.",
+
+                optimizacionLinkedin: "LinkedIn Optimization",
+                descLinkedin: "Profile rewritten so recruiters find you.",
+
+                simulacro: "Mock Interview",
+                descSimulacro: "Real practice with honest feedback.",
+
+                negociacion: "Salary Negotiation Advice",
+                descNegociacion: "A good negotiation can be worth thousands per year.",
+
+                carritoTitulo: "Your selected services",
+                carritoVacio: "Your cart is empty.",
+                eliminar: "Remove",
+                totalEstimado: "Estimated total",
+                carritoNota: "We will confirm availability and send you the payment link.",
+                carritoBtn: "Request and coordinate on WhatsApp",
+                vaciarCarrito: "Empty cart",
+
+                descEntrada: "Honest diagnosis, clarity on urgent changes, written summary, 50 min 1:1 session, CV/LinkedIn optimization, action plan.",
+                descEstrategia: "3 x 1:1 sessions, in-depth diagnosis, CV and LinkedIn optimization, goal definition, job search plan.",
+                descAcompanamiento: "Everything in Strategy Program + 2 monthly follow-up sessions, application review, interview prep, messaging channel, salary negotiation."
+            },
+            pt: {
+                entrada: "Entrada · Sessão única",
+                estrategia: "Programa Estratégia",
+                acompanamiento: "Acompanhamento total",
+
+                ctaEntrada: "Reservar e pagar",
+                ctaEstrategia: "Reservar diagnóstico gratuito",
+                ctaAcompanamiento: "Falar no WhatsApp",
+                agregarCarrito: "Adicionar ao carrinho",
+
+                entradaNota: "Ideal se você precisa de uma sessão concreta de orientação, revisão ou destravamento.",
+                estrategiaNota: "Primeiro avaliamos sua situação e confirmamos se este programa faz sentido para o seu perfil.",
+                acompanamientoNota: "Serviço personalizado. Definimos escopo, duração e próximo passo com você.",
+
+                descuentoEntrada: "Vamos coordenar a disponibilidade e enviar o link de pagamento.",
+                descuentoEstrategia: "A contratação final é definida depois do diagnóstico.",
+                descuentoAcompanamiento: "Escopo e investimento final são confirmados após a avaliação.",
+
+                sufijoUnica: "sessão única · 50 min",
+                sufijoCompleto: "programa completo",
+
+                revisionCV: "Revisão expressa de CV",
+                feedbackCV: "Feedback detalhado em 48h.",
+
+                optimizacionLinkedin: "Otimização do LinkedIn",
+                descLinkedin: "Perfil reescrito para que recrutadores te encontrem.",
+
+                simulacro: "Simulação de entrevista",
+                descSimulacro: "Prática real com feedback honesto.",
+
+                negociacion: "Consultoria de negociação salarial",
+                descNegociacion: "Uma boa negociação pode valer milhares por ano.",
+
+                carritoTitulo: "Seus serviços selecionados",
+                carritoVacio: "Seu carrinho está vazio.",
+                eliminar: "Remover",
+                totalEstimado: "Total estimado",
+                carritoNota: "Confirmaremos a disponibilidade e enviaremos o link de pagamento.",
+                carritoBtn: "Solicitar e coordenar pelo WhatsApp",
+                vaciarCarrito: "Esvaziar carrinho",
+
+                descEntrada: "Diagnóstico honesto, clareza sobre mudanças urgentes, resumo escrito, sessão 1:1 de 50 min, otimização de CV/LinkedIn, plano de ação.",
+                descEstrategia: "3 sessões 1:1, diagnóstico profundo, otimização de CV e LinkedIn, definição de objetivo, plano de busca.",
+                descAcompanamiento: "Tudo do Programa Estratégia + 2 sessões/mês de acompanhamento, revisão de candidaturas, preparação para entrevistas, canal de mensagens, negociação salarial."
+            }
+        };
+
+        const preciosData = {
+            ie: {
+                entrada: { precio: "€75" },
+                estrategia: { precio: "€390" },
+                acompanamiento: { precio: "€500–€1.000" },
+                puntuales: { cv: "€65", linkedin: "€180", entrevista: "€90", negociacion: "€100" }
+            },
+            es: {
+                entrada: { precio: "€55" },
+                estrategia: { precio: "€290" },
+                acompanamiento: { precio: "€320–€650" },
+                puntuales: { cv: "€45", linkedin: "€130", entrevista: "€65", negociacion: "€70" }
+            },
+            latam: {
+                entrada: { precio: "€35" },
+                estrategia: { precio: "€199" },
+                acompanamiento: { precio: "€199–€400" },
+                puntuales: { cv: "€35", linkedin: "€90", entrevista: "€45", negociacion: "€50" }
+            }
+        };
+
+        const translations = {
+            es: {
+                "nav-nosotros": "Nosotros",
+                "nav-metodologia": "Metodología",
+                "nav-servicios": "Servicios",
+                "nav-precios": "Precios",
+                "nav-testimonios": "Testimonios",
+                "nav-faq": "FAQ",
+
+                "hero-sub": "Consultoría de carrera para hispanohablantes en Europa",
+                "hero-title": "Tu carrera merece una <span class='text-indigo-600'>estrategia clara.</span><br>Nosotros te ayudamos a construirla.",
+                "hero-desc": "Somos una consultoría especializada en estrategia de carrera para profesionales hispanohablantes en Europa. Analizamos tu perfil, definimos un objetivo realista y diseñamos un plan de acción para que avances con confianza.",
+                "hero-btn": "Reservar sesión de diagnóstico gratuita",
+                "hero-btn2": "Ver servicios y precios",
+                "hero-note": "50 minutos · Sin compromiso · Para saber exactamente qué está fallando.",
+
+                "quienes-titulo": "Quiénes somos",
+                "quienes-text1": "<strong>No trabajamos desde la teoría.</strong> Venimos del mercado que te estamos ayudando a entrar. Hemos trabajado dentro de las empresas que tú quieres entrar. Sabemos cómo piensan los reclutadores, qué valoran los hiring managers y qué diferencia a los candidatos que avanzan de los que no. Eso nos permite ayudarte no solo con documentos — sino con criterio.",
+                "quienes-text2": "Trabajamos con la realidad del mercado, con perfiles que necesitan ordenar su carrera y con decisiones profesionales que tienen impacto real en ingresos, estabilidad y bienestar.",
+                "quienes-cita": "\"Dos perspectivas, un mismo objetivo: que entiendas tu valor, lo comuniques bien y te muevas con criterio en el mercado.\"",
+
+                "galizzi-desc": "Ayuda a profesionales que quieren entrar o crecer en Big Tech, especialmente en áreas como Trust & Safety, Content Operations y escalaciones. Con experiencia en Meta, TikTok e iSpot, aporta más de 7 años trabajando en operaciones internacionales de alta exigencia.",
+                "ayala-desc": "Aporto una visión estratégica del mercado y del negocio, combinando experiencia como Account Manager en PayPal y en ventas B2B dentro de sectores como SaaS, fintech, pagos y medios digitales.",
+                "galizzi-btn": "Hablar con Javier Galizzi",
+                "ayala-btn": "Hablar con Javier Ayala",
+
+                "metodologia-titulo": "Cómo trabajamos",
+                "metodologia-sub": "Un proceso claro en seis pasos. Sin improvisación. Menos de 4 semanas para pasar de la confusión al plan.",
+
+                "paso1-tit": "Diagnóstico inicial",
+                "paso1-desc": "Entendemos tu situación real, tu trayectoria y lo que quieres conseguir. Antes de proponer nada, escuchamos.",
+                "paso2-tit": "Análisis de trayectoria",
+                "paso2-desc": "Revisamos tu experiencia en profundidad para encontrar el valor que tú no ves y que el mercado sí puede valorar.",
+                "paso3-tit": "Fortalezas y bloqueos",
+                "paso3-desc": "Identificamos qué te diferencia. También qué te frena. Y trabajamos ambas cosas, no solo la parte positiva.",
+                "paso4-tit": "Objetivo profesional claro",
+                "paso4-desc": "Definimos adónde quieres ir y si ese objetivo tiene sentido para tu perfil en el mercado actual. Honestidad por encima de todo.",
+                "paso5-tit": "Reposicionamiento del perfil",
+                "paso5-desc": "CV, LinkedIn y discurso profesional orientados a tu objetivo específico — no a un mercado genérico.",
+                "paso6-tit": "Plan de acción",
+                "paso6-desc": "Un plan de búsqueda ejecutable con acciones concretas por semana. Y acompañamiento mientras lo pones en marcha.",
+
+                "quehacemos-titulo": "Qué hacemos",
+                "quehacemos-sub": "Todo lo que necesitas para avanzar con criterio",
+                "serv1-tit": "Consultoría de carrera",
+                "serv1-desc": "Definimos un objetivo profesional claro y realista.",
+                "serv2-tit": "Optimización de CV",
+                "serv2-desc": "CV que pasa filtros ATS y comunica valor.",
+                "serv3-tit": "Optimización de LinkedIn",
+                "serv3-desc": "Perfil que atrae reclutadores.",
+                "serv4-tit": "Preparación de entrevistas",
+                "serv4-desc": "Simulacros reales con feedback honesto.",
+                "serv5-tit": "Cursos de Inglés",
+                "serv5-desc": "Preparación específica para entrevistas y comunicación profesional.",
+
+                "cambia-titulo": "Qué cambia después de trabajar con nosotros",
+                "cambia-sub": "No vendemos motivación. Vendemos claridad, estructura y dirección.",
+                "antes-th": "Antes",
+                "despues-th": "Después",
+                "antes1": "\"Mando CVs y no sé por qué no responden\"",
+                "despues1": "\"Sé exactamente qué comunica mi perfil y cómo mejorarlo\"",
+                "antes2": "\"No tengo claro a qué tipo de trabajo apuntar\"",
+                "despues2": "\"Tengo un objetivo profesional concreto y realista\"",
+                "antes3": "\"Busco por intuición, sin saber si lo hago bien\"",
+                "despues3": "\"Tengo un plan de búsqueda con acciones claras para cada semana\"",
+                "antes4": "\"Las entrevistas me generan ansiedad y no sé qué falla\"",
+                "despues4": "\"Llego preparado/a, sé qué van a preguntar y cómo responder\"",
+                "antes5": "\"Siento que llevo tiempo sin avanzar\"",
+                "despues5": "\"Empiezo a moverme con dirección y a ver resultados concretos\"",
+                "cambia-nota": "No es una transformación mágica. Es el resultado de tener por fin la estructura y el acompañamiento que necesitabas.",
+
+                "precios-titulo": "Servicios y precios",
+                "precios-sub": "Precios adaptados a cada mercado. Elige tu ubicación para ver las tarifas correctas.",
+                "precios-nota": "¿No sabes por cuál empezar? La sesión de diagnóstico es siempre el mejor primer paso.",
+
+                "testimonios-titulo": "Lo que dicen quienes ya trabajaron con nosotros",
+                "test1-text": "\"Gracias a su asesoría pude negociar mi salario con confianza y obtuve un aumento significativo.\"",
+                "test1-role": "Negociación salarial",
+                "test2-text": "\"Con su ayuda transformé por completo mi perfil de LinkedIn. Ahora recibo muchas más oportunidades.\"",
+                "test2-role": "Optimización de LinkedIn",
+                "test3-text": "\"El Programa Estrategia me dio claridad total. Conseguí Gerente de Equipo en Securitas Direct Barcelona.\"",
+                "test3-role": "Gerente de Equipo · Securitas Direct",
+
+                "faq-titulo": "Preguntas frecuentes",
+                "faq1-q": "¿En cuánto tiempo veré resultados?",
+                "faq1-a": "Depende de tu punto de partida y la dedicación, pero muchos clientes ven mejoras en 3-4 semanas con el Programa Estrategia.",
+                "faq2-q": "¿Funciona para cualquier sector o solo para Tech?",
+                "faq2-a": "Ayudamos a profesionales de diversos sectores, aunque tenemos especial fortaleza en tecnología, fintech, ventas y operaciones.",
+                "faq3-q": "¿Las sesiones son en español?",
+                "faq3-a": "Sí, totalmente en español. También podemos adaptarnos al inglés si lo necesitas.",
+                "faq4-q": "¿Qué pasa si no consigo trabajo después del proceso?",
+                "faq4-a": "Te acompañamos con revisiones adicionales y ajustes hasta que logres resultados. No te dejamos solo.",
+
+                "cta-titulo": "¿Listo/a para dar el siguiente paso en tu carrera?",
+                "cta-desc": "Reserva una sesión de diagnóstico gratuita de 50 minutos. Sin compromiso — solo una conversación honesta sobre tu situación y cómo podemos ayudarte.",
+                "cta-btn": "Reservar sesión de diagnóstico gratuita",
+                "cta-note": "50 minutos · Online · Sin compromiso",
+
+                "footer-copy": "© 2026 Career Strategy Studio. Todos los derechos reservados.",
+                "footer-contact": "careerstrategystudio@gmail.com · Sesiones online Zoom / Google Meet · Disponible para hispanohablantes en toda Europa y toda Latinoamérica"
+            },
+
+            en: {
+                "nav-nosotros": "About Us",
+                "nav-metodologia": "Methodology",
+                "nav-servicios": "Services",
+                "nav-precios": "Pricing",
+                "nav-testimonios": "Testimonials",
+                "nav-faq": "FAQ",
+
+                "hero-sub": "Career consulting for Spanish speakers in Europe",
+                "hero-title": "Your career deserves a <span class='text-indigo-600'>clear strategy.</span><br>We help you build it.",
+                "hero-desc": "We are a consultancy specialized in career strategy for Spanish-speaking professionals in Europe. We analyze your profile, define a realistic goal, and design an action plan to move forward with confidence.",
+                "hero-btn": "Book a free diagnostic session",
+                "hero-btn2": "View services and prices",
+                "hero-note": "50 minutes · No commitment · To find out exactly what's failing.",
+
+                "quienes-titulo": "About Us",
+                "quienes-text1": "<strong>We don't work from theory.</strong> We come from the market we are helping you enter. We have worked inside the companies you want to join. We know how recruiters think, what hiring managers value, and what sets successful candidates apart. That allows us to help you not only with documents — but with judgment.",
+                "quienes-text2": "We work with market reality, with professionals who need to organize their career, and with career decisions that have real impact on income, stability, and well-being.",
+                "quienes-cita": "\"Two perspectives, one goal: for you to understand your value, communicate it well, and move with confidence in the market.\"",
+
+                "galizzi-desc": "Helps professionals who want to enter or grow in Big Tech, especially in areas like Trust & Safety, Content Operations, and escalations. With experience at Meta, TikTok, and iSpot, he brings over 7 years of working in high-demand international operations.",
+                "ayala-desc": "I provide a strategic market and business perspective, combining experience as an Account Manager at PayPal and B2B sales in sectors like SaaS, fintech, payments, and digital media.",
+                "galizzi-btn": "Talk to Javier Galizzi",
+                "ayala-btn": "Talk to Javier Ayala",
+
+                "metodologia-titulo": "How we work",
+                "metodologia-sub": "A clear six-step process. No improvisation. Less than 4 weeks to go from confusion to a plan.",
+
+                "paso1-tit": "Initial Diagnosis",
+                "paso1-desc": "We understand your real situation, your background, and what you want to achieve. Before proposing anything, we listen.",
+                "paso2-tit": "Career Path Analysis",
+                "paso2-desc": "We review your experience in depth to find the value you don't see and that the market can value.",
+                "paso3-tit": "Strengths and Blockages",
+                "paso3-desc": "We identify what sets you apart. Also what holds you back. And we work on both, not just the positive side.",
+                "paso4-tit": "Clear Professional Goal",
+                "paso4-desc": "We define where you want to go and whether that goal makes sense for your profile in the current market. Honesty above all.",
+                "paso5-tit": "Profile Repositioning",
+                "paso5-desc": "CV, LinkedIn, and professional narrative tailored to your specific goal — not a generic market.",
+                "paso6-tit": "Action Plan",
+                "paso6-desc": "An actionable job search plan with concrete weekly actions. And support while you implement it.",
+
+                "quehacemos-titulo": "What we do",
+                "quehacemos-sub": "Everything you need to move forward with judgment",
+                "serv1-tit": "Career Consulting",
+                "serv1-desc": "We define a clear and realistic professional goal.",
+                "serv2-tit": "CV Optimization",
+                "serv2-desc": "CV that passes ATS filters and communicates value.",
+                "serv3-tit": "LinkedIn Optimization",
+                "serv3-desc": "Profile that attracts recruiters.",
+                "serv4-tit": "Interview Preparation",
+                "serv4-desc": "Real mock interviews with honest feedback.",
+                "serv5-tit": "English Courses",
+                "serv5-desc": "Specific preparation for interviews and professional communication.",
+
+                "cambia-titulo": "What changes after working with us",
+                "cambia-sub": "We don't sell motivation. We sell clarity, structure, and direction.",
+                "antes-th": "Before",
+                "despues-th": "After",
+                "antes1": "\"I send CVs and don't know why they don't respond\"",
+                "despues1": "\"I know exactly what my profile communicates and how to improve it\"",
+                "antes2": "\"I'm not sure what type of job to aim for\"",
+                "despues2": "\"I have a concrete and realistic professional goal\"",
+                "antes3": "\"I search by intuition, not knowing if I'm doing it right\"",
+                "despues3": "\"I have a search plan with clear actions for each week\"",
+                "antes4": "\"Interviews make me anxious and I don't know what's wrong\"",
+                "despues4": "\"I arrive prepared, I know what they'll ask and how to answer\"",
+                "antes5": "\"I feel like I've been stuck for a while\"",
+                "despues5": "\"I start moving with direction and seeing concrete results\"",
+                "cambia-nota": "It's not a magical transformation. It's the result of finally having the structure and support you needed.",
+
+                "precios-titulo": "Services and prices",
+                "precios-sub": "Prices adapted to each market. Choose your location to see the correct rates.",
+                "precios-nota": "Not sure where to start? The diagnostic session is always the best first step.",
+
+                "testimonios-titulo": "What people who have worked with us say",
+                "test1-text": "\"Thanks to their advice, I was able to negotiate my salary with confidence and got a significant raise.\"",
+                "test1-role": "Salary negotiation",
+                "test2-text": "\"With their help, I completely transformed my LinkedIn profile. Now I receive many more opportunities.\"",
+                "test2-role": "LinkedIn Optimization",
+                "test3-text": "\"The Strategy Program gave me total clarity. I achieved Team Manager at Securitas Direct Barcelona.\"",
+                "test3-role": "Team Manager · Securitas Direct",
+
+                "faq-titulo": "Frequently Asked Questions",
+                "faq1-q": "How soon will I see results?",
+                "faq1-a": "It depends on your starting point and dedication, but many clients see improvements in 3-4 weeks with the Strategy Program.",
+                "faq2-q": "Does it work for any sector or only Tech?",
+                "faq2-a": "We help professionals from various sectors, although we have special strength in technology, fintech, sales, and operations.",
+                "faq3-q": "Are the sessions in Spanish?",
+                "faq3-a": "Yes, completely in Spanish. We can also adapt to English if needed.",
+                "faq4-q": "What if I don't get a job after the process?",
+                "faq4-a": "We provide additional reviews and adjustments until you achieve results. We don't leave you alone.",
+
+                "cta-titulo": "Ready to take the next step in your career?",
+                "cta-desc": "Book a free 50-minute diagnostic session. No commitment — just an honest conversation about your situation and how we can help you.",
+                "cta-btn": "Book a free diagnostic session",
+                "cta-note": "50 minutes · Online · No commitment",
+
+                "footer-copy": "© 2026 Career Strategy Studio. All rights reserved.",
+                "footer-contact": "careerstrategystudio@gmail.com · Online sessions Zoom / Google Meet · Available for Spanish speakers throughout Europe and Latin America"
+            },
+
+            pt: {
+                "nav-nosotros": "Sobre nós",
+                "nav-metodologia": "Metodologia",
+                "nav-servicios": "Serviços",
+                "nav-precios": "Preços",
+                "nav-testimonios": "Depoimentos",
+                "nav-faq": "FAQ",
+
+                "hero-sub": "Consultoria de carreira para falantes de espanhol na Europa",
+                "hero-title": "Sua carreira merece uma <span class='text-indigo-600'>estratégia clara.</span><br>Nós ajudamos você a construí-la.",
+                "hero-desc": "Somos uma consultoria especializada em estratégia de carreira para profissionais hispanofalantes na Europa. Analisamos seu perfil, definimos uma meta realista e criamos um plano de ação para avançar com confiança.",
+                "hero-btn": "Reserve uma sessão de diagnóstico gratuita",
+                "hero-btn2": "Ver serviços e preços",
+                "hero-note": "50 minutos · Sem compromisso · Para saber exatamente o que está falhando.",
+
+                "quienes-titulo": "Sobre nós",
+                "quienes-text1": "<strong>Não trabalhamos com teoria.</strong> Viemos do mercado que estamos ajudando você a entrar. Trabalhamos dentro das empresas que você deseja entrar. Sabemos como os recrutadores pensam, o que os gerentes de contratação valorizam e o que diferencia os candidatos que avançam. Isso nos permite ajudá-lo não apenas com documentos — mas com critério.",
+                "quienes-text2": "Trabalhamos com a realidade do mercado, com perfis que precisam organizar suas carreiras e com decisões profissionais que têm impacto real na renda, estabilidade e bem-estar.",
+                "quienes-cita": "\"Duas perspectivas, um mesmo objetivo: que você entenda seu valor, comunique bem e se mova com critério no mercado.\"",
+
+                "galizzi-desc": "Ajuda profissionais que desejam entrar ou crescer em Big Tech, especialmente em áreas como Trust & Safety, Content Operations e escalações. Com experiência em Meta, TikTok e iSpot, contribui com mais de 7 anos trabalhando em operações internacionais de alta exigência.",
+                "ayala-desc": "Ofereço uma visão estratégica do mercado e dos negócios, combinando experiência como Account Manager na PayPal e vendas B2B em setores como SaaS, fintech, pagamentos e mídia digital.",
+                "galizzi-btn": "Falar com Javier Galizzi",
+                "ayala-btn": "Falar com Javier Ayala",
+
+                "metodologia-titulo": "Como trabalhamos",
+                "metodologia-sub": "Um processo claro em seis passos. Sem improvisação. Menos de 4 semanas para sair da confusão ao plano.",
+
+                "paso1-tit": "Diagnóstico inicial",
+                "paso1-desc": "Entendemos sua situação real, sua trajetória e o que você deseja alcançar. Antes de propor qualquer coisa, ouvimos.",
+                "paso2-tit": "Análise de trajetória",
+                "paso2-desc": "Revisamos sua experiência em profundidade para encontrar o valor que você não vê e que o mercado pode valorizar.",
+                "paso3-tit": "Forças e bloqueios",
+                "paso3-desc": "Identificamos o que te diferencia. Também o que te trava. E trabalhamos ambos os aspectos, não apenas a parte positiva.",
+                "paso4-tit": "Objetivo profissional claro",
+                "paso4-desc": "Definimos para onde você quer ir e se esse objetivo faz sentido para seu perfil no mercado atual. Honestidade acima de tudo.",
+                "paso5-tit": "Reposicionamento de perfil",
+                "paso5-desc": "Currículo, LinkedIn e discurso profissional orientados para seu objetivo específico — não para um mercado genérico.",
+                "paso6-tit": "Plano de ação",
+                "paso6-desc": "Um plano de busca executável com ações concretas por semana. E acompanhamento enquanto você o coloca em prática.",
+
+                "quehacemos-titulo": "O que fazemos",
+                "quehacemos-sub": "Tudo o que você precisa para avançar com critério",
+                "serv1-tit": "Consultoria de carreira",
+                "serv1-desc": "Definimos um objetivo profissional claro e realista.",
+                "serv2-tit": "Otimização de CV",
+                "serv2-desc": "Currículo que passa nos filtros ATS e comunica valor.",
+                "serv3-tit": "Otimização do LinkedIn",
+                "serv3-desc": "Perfil que atrai recrutadores.",
+                "serv4-tit": "Preparação para entrevistas",
+                "serv4-desc": "Simulações reais com feedback honesto.",
+                "serv5-tit": "Cursos de Inglês",
+                "serv5-desc": "Preparação específica para entrevistas e comunicação profissional.",
+
+                "cambia-titulo": "O que muda depois de trabalhar conosco",
+                "cambia-sub": "Não vendemos motivação. Vendemos clareza, estrutura e direção.",
+                "antes-th": "Antes",
+                "despues-th": "Depois",
+                "antes1": "\"Envio currículos e não sei por que não respondem\"",
+                "despues1": "\"Sei exatamente o que meu perfil comunica e como melhorá-lo\"",
+                "antes2": "\"Não tenho certeza de que tipo de trabalho almejar\"",
+                "despues2": "\"Tenho um objetivo profissional concreto e realista\"",
+                "antes3": "\"Busco por intuição, sem saber se estou fazendo certo\"",
+                "despues3": "\"Tenho um plano de busca com ações claras para cada semana\"",
+                "antes4": "\"As entrevistas me causam ansiedade e não sei o que está errado\"",
+                "despues4": "\"Chego preparado, sei o que vão perguntar e como responder\"",
+                "antes5": "\"Sinto que estou há algum tempo sem avançar\"",
+                "despues5": "\"Começo a me mover com direção e a ver resultados concretos\"",
+                "cambia-nota": "Não é uma transformação mágica. É o resultado de finalmente ter a estrutura e o acompanhamento que você precisava.",
+
+                "precios-titulo": "Serviços e preços",
+                "precios-sub": "Preços adaptados a cada mercado. Escolha sua localização para ver as tarifas corretas.",
+                "precios-nota": "Não sabe por onde começar? A sessão de diagnóstico é sempre o melhor primeiro passo.",
+
+                "testimonios-titulo": "O que dizem quem já trabalhou conosco",
+                "test1-text": "\"Graças à consultoria, pude negociar meu salário com confiança e obtive um aumento significativo.\"",
+                "test1-role": "Negociação salarial",
+                "test2-text": "\"Com a ajuda deles, transformei completamente meu perfil no LinkedIn. Agora recebo muito mais oportunidades.\"",
+                "test2-role": "Otimização do LinkedIn",
+                "test3-text": "\"O Programa Estratégia me deu clareza total. Consegui Gerente de Equipe na Securitas Direct Barcelona.\"",
+                "test3-role": "Gerente de Equipe · Securitas Direct",
+
+                "faq-titulo": "Perguntas frequentes",
+                "faq1-q": "Em quanto tempo verei resultados?",
+                "faq1-a": "Depende do seu ponto de partida e dedicação, mas muitos clientes veem melhorias em 3-4 semanas com o Programa Estratégia.",
+                "faq2-q": "Funciona para qualquer setor ou apenas para Tech?",
+                "faq2-a": "Ajudamos profissionais de diversos setores, embora tenhamos força especial em tecnologia, fintech, vendas e operações.",
+                "faq3-q": "As sessões são em espanhol?",
+                "faq3-a": "Sim, totalmente em espanhol. Também podemos nos adaptar ao inglês se necessário.",
+                "faq4-q": "O que acontece se eu não conseguir um emprego após o processo?",
+                "faq4-a": "Oferecemos revisões adicionais e ajustes até que você alcance resultados. Não deixamos você sozinho.",
+
+                "cta-titulo": "Pronto para dar o próximo passo na sua carreira?",
+                "cta-desc": "Reserve uma sessão de diagnóstico gratuita de 50 minutos. Sem compromisso — apenas uma conversa honesta sobre sua situação e como podemos ajudá-lo.",
+                "cta-btn": "Reserve uma sessão de diagnóstico gratuita",
+                "cta-note": "50 minutos · Online · Sem compromisso",
+
+                "footer-copy": "© 2026 Career Strategy Studio. Todos os direitos reservados.",
+                "footer-contact": "careerstrategystudio@gmail.com · Sessões online Zoom / Google Meet · Disponível para falantes de espanhol em toda a Europa e toda a América Latina"
+            }
+        };
+
+        function getRegionLabel(region) {
+            return regionLabels[currentLang]?.[region] || region;
+        }
+
+        function getPriceText(key) {
+            return preciosTexts[currentLang]?.[key] || preciosTexts.es[key] || key;
+        }
+
+        function persistCart() {
+            localStorage.setItem("css_cart", JSON.stringify(cart));
+        }
+
+        function updateCartCount() {
+            const count = cart.reduce((acc, item) => acc + item.qty, 0);
+            const el = document.getElementById("cart-count");
+            if (el) el.textContent = count;
+        }
+
+        function parsePriceToNumber(priceLabel) {
+            if (!priceLabel) return 0;
+            const normalized = priceLabel
+                .replace(/[^\d,.\-]/g, "")
+                .replace(/\./g, "")
+                .replace(",", ".");
+            const value = Number(normalized);
+            return Number.isFinite(value) ? value : 0;
+        }
+
+        function formatEuro(value) {
+            return new Intl.NumberFormat(
+                currentLang === "en" ? "en-IE" : currentLang === "pt" ? "pt-BR" : "es-ES",
+                {
+                    style: "currency",
+                    currency: "EUR",
+                    maximumFractionDigits: 0
+                }
+            ).format(value);
+        }
+
+        function openBookingCalendar() {
+            window.open(BOOKING_URL, "_blank");
+        }
+
+        function openWhatsApp(number, message) {
+            const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+            window.open(url, "_blank");
+        }
+
+        function getEntryMessage(region) {
+            const price = preciosData[region].entrada.precio;
+            const regionName = getRegionLabel(region);
+
+            return {
+                es: `Hola Javier, quiero reservar una sesión puntual (${regionName}). He visto el precio de ${price}. Quiero coordinar disponibilidad y recibir el enlace de pago.`,
+                en: `Hi Javier, I want to book a single session (${regionName}). I saw the price is ${price}. I would like to coordinate availability and receive the payment link.`,
+                pt: `Olá Javier, quero reservar uma sessão pontual (${regionName}). Vi o preço de ${price}. Quero coordenar a disponibilidade e receber o link de pagamento.`
+            }[currentLang];
+        }
+
+        function getAcompanamientoMessage(region) {
+            const regionName = getRegionLabel(region);
+
+            return {
+                es: `Hola Javier, estoy interesado/a en el servicio de Acompañamiento total (${regionName}). Quiero más información sobre alcance, disponibilidad y siguiente paso.`,
+                en: `Hi Javier, I am interested in the Total Support service (${regionName}). I would like more information about scope, availability and next steps.`,
+                pt: `Olá Javier, tenho interesse no serviço de Acompanhamento total (${regionName}). Quero mais informações sobre escopo, disponibilidade e próximo passo.`
+            }[currentLang];
+        }
+
+        function contactEntry(region) {
+            openWhatsApp(AYALA_NUMBER, getEntryMessage(region));
+        }
+
+        function contactAcompanamiento(region) {
+            openWhatsApp(AYALA_NUMBER, getAcompanamientoMessage(region));
+        }
+
+        function contactConsultant(type) {
+            if (type === "galizzi") {
+                const msg = {
+                    es: "Hola Javier, estoy interesado/a en orientación para roles de Big Tech, Trust & Safety o Content Operations y quiero más información sobre vuestros servicios.",
+                    en: "Hi Javier, I am interested in guidance for Big Tech, Trust & Safety or Content Operations roles and would like more information about your services.",
+                    pt: "Olá Javier, tenho interesse em orientação para vagas de Big Tech, Trust & Safety ou Content Operations e quero mais informações sobre os serviços."
+                }[currentLang];
+                openWhatsApp(GALIZZI_NUMBER, msg);
+                return;
+            }
+
+            const msg = {
+                es: "Hola Javier, estoy interesado/a en orientación de carrera y quiero más información sobre vuestros servicios.",
+                en: "Hi Javier, I am interested in career guidance and would like more information about your services.",
+                pt: "Olá Javier, tenho interesse em orientação de carreira e quero mais informações sobre os serviços."
+            }[currentLang];
+
+            openWhatsApp(AYALA_NUMBER, msg);
+        }
+
+        function toggleCart(forceOpen) {
+            const sidebar = document.getElementById("cart-sidebar");
+            const overlay = document.getElementById("cart-overlay");
+            if (!sidebar || !overlay) return;
+
+            const shouldOpen = typeof forceOpen === "boolean"
+                ? forceOpen
+                : sidebar.classList.contains("hidden");
+
+            sidebar.classList.toggle("hidden", !shouldOpen);
+            overlay.classList.toggle("hidden", !shouldOpen);
+
+            if (shouldOpen) renderCart();
+        }
+
+        function addServiceToCart(labelKey, priceLabel, region) {
+            const id = `${region}-${labelKey}-${priceLabel}`;
+            const existing = cart.find(item => item.id === id);
+
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({
+                    id,
+                    labelKey,
+                    priceLabel,
+                    numericPrice: parsePriceToNumber(priceLabel),
+                    region,
+                    qty: 1
+                });
+            }
+
+            persistCart();
+            updateCartCount();
+            renderCart();
+            toggleCart(true);
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            persistCart();
+            updateCartCount();
+            renderCart();
+        }
+
+        function clearCart() {
+            cart = [];
+            persistCart();
+            updateCartCount();
+            renderCart();
+        }
+
+        function renderCart() {
+            const itemsEl = document.getElementById("cart-items");
+            const totalEl = document.getElementById("cart-total");
+            const titleEl = document.getElementById("cart-title");
+            const totalLabelEl = document.getElementById("cart-total-label");
+            const noteEl = document.getElementById("cart-note");
+            const checkoutBtn = document.getElementById("cart-checkout-btn");
+            const clearBtn = document.getElementById("cart-clear-btn");
+
+            if (titleEl) titleEl.textContent = getPriceText("carritoTitulo");
+            if (totalLabelEl) totalLabelEl.textContent = getPriceText("totalEstimado");
+            if (noteEl) noteEl.textContent = getPriceText("carritoNota");
+            if (checkoutBtn) checkoutBtn.textContent = getPriceText("carritoBtn");
+            if (clearBtn) clearBtn.textContent = getPriceText("vaciarCarrito");
+
+            if (!itemsEl || !totalEl) return;
+
+            if (cart.length === 0) {
+                itemsEl.innerHTML = `<p class="text-center text-gray-500 py-12">${getPriceText("carritoVacio")}</p>`;
+                totalEl.textContent = formatEuro(0);
+                return;
+            }
+
+            let total = 0;
+
+            itemsEl.innerHTML = cart.map(item => {
+                total += item.numericPrice * item.qty;
+                const name = getPriceText(item.labelKey);
+                const regionName = getRegionLabel(item.region);
+
+                return `
+                    <div class="border border-gray-200 rounded-xl p-4 mb-3">
+                        <div class="flex items-start justify-between gap-3">
+                            <div>
+                                <p class="font-semibold text-gray-900">${name}</p>
+                                <p class="text-sm text-gray-500">${regionName}</p>
+                                <p class="text-sm text-indigo-600 mt-1">${item.priceLabel}${item.qty > 1 ? ` × ${item.qty}` : ""}</p>
+                            </div>
+                            <button type="button" onclick="removeFromCart('${item.id}')" class="text-sm text-red-600 hover:text-red-700">
+                                ${getPriceText("eliminar")}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+
+            totalEl.textContent = formatEuro(total);
+        }
+
+        function buildCartWhatsAppMessage() {
+            const header = {
+                es: "Hola, quiero contratar estos servicios:",
+                en: "Hi, I want to book these services:",
+                pt: "Olá, quero contratar estes serviços:"
+            }[currentLang];
+
+            const footer = {
+                es: "También quiero coordinar disponibilidad y recibir el enlace de pago.",
+                en: "I also want to coordinate availability and receive the payment link.",
+                pt: "Também quero coordenar a disponibilidade e receber o link de pagamento."
+            }[currentLang];
+
+            const lines = cart.map(item => {
+                const name = getPriceText(item.labelKey);
+                return `- ${name} (${getRegionLabel(item.region)}) — ${item.priceLabel}${item.qty > 1 ? ` x${item.qty}` : ""}`;
+            });
+
+            const total = cart.reduce((sum, item) => sum + (item.numericPrice * item.qty), 0);
+            return `${header}\n\n${lines.join("\n")}\n\n${getPriceText("totalEstimado")}: ${formatEuro(total)}\n\n${footer}`;
+        }
+
+        function proceedToCartWhatsApp() {
+            if (!cart.length) return;
+            openWhatsApp(AYALA_NUMBER, buildCartWhatsAppMessage());
+        }
+
+        function cambiarPrecio(region) {
+            currentRegion = region;
+            const data = preciosData[region];
+            const txt = preciosTexts[currentLang];
+            if (!txt || !data) return;
+
+            document.getElementById("precios-contenedor").innerHTML = `
+                <div class="grid md:grid-cols-3 gap-8 mb-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                        <h3 class="text-xl font-bold text-indigo-600">${txt.entrada}</h3>
+                        <p class="text-2xl font-bold my-2">${data.entrada.precio}<span class="text-sm font-normal"> / ${txt.sufijoUnica}</span></p>
+                        <p class="text-gray-600">${txt.descEntrada}</p>
+                        <p class="text-sm text-gray-500 mt-3">${txt.entradaNota}</p>
+                        <button
+                            type="button"
+                            onclick="contactEntry('${region}')"
+                            class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-fast"
+                        >
+                            ${txt.ctaEntrada}
+                        </button>
+                        <p class="text-xs text-gray-400 mt-2">${txt.descuentoEntrada}</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md border-2 border-indigo-200">
+                        <h3 class="text-xl font-bold text-indigo-600">⭐ ${txt.estrategia}</h3>
+                        <p class="text-2xl font-bold my-2">${data.estrategia.precio}<span class="text-sm font-normal"> / ${txt.sufijoCompleto}</span></p>
+                        <p class="text-gray-600">${txt.descEstrategia}</p>
+                        <p class="text-sm text-gray-500 mt-3">${txt.estrategiaNota}</p>
+                        <button
+                            type="button"
+                            onclick="openBookingCalendar()"
+                            class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-fast"
+                        >
+                            ${txt.ctaEstrategia}
+                        </button>
+                        <p class="text-xs text-gray-400 mt-2">${txt.descuentoEstrategia}</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                        <h3 class="text-xl font-bold text-indigo-600">${txt.acompanamiento}</h3>
+                        <p class="text-2xl font-bold my-2">${data.acompanamiento.precio}<span class="text-sm font-normal"> / ${txt.sufijoCompleto}</span></p>
+                        <p class="text-gray-600">${txt.descAcompanamiento}</p>
+                        <p class="text-sm text-gray-500 mt-3">${txt.acompanamientoNota}</p>
+                        <button
+                            type="button"
+                            onclick="contactAcompanamiento('${region}')"
+                            class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-fast"
+                        >
+                            ${txt.ctaAcompanamiento}
+                        </button>
+                        <p class="text-xs text-gray-400 mt-2">${txt.descuentoAcompanamiento}</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-gray-50 p-5 rounded-lg border border-gray-200 text-center">
+                        <h4 class="font-bold text-lg">${txt.revisionCV}</h4>
+                        <p class="text-2xl font-bold text-indigo-600 my-2">${data.puntuales.cv}</p>
+                        <p class="text-gray-500 text-sm mb-3">${txt.feedbackCV}</p>
+                        <button
+                            type="button"
+                            onclick="addServiceToCart('revisionCV', '${data.puntuales.cv}', '${region}')"
+                            class="inline-block bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold px-4 py-2 rounded-lg text-sm transition-fast w-full"
+                        >
+                            ${txt.agregarCarrito}
+                        </button>
+                    </div>
+
+                    <div class="bg-gray-50 p-5 rounded-lg border border-gray-200 text-center">
+                        <h4 class="font-bold text-lg">${txt.optimizacionLinkedin}</h4>
+                        <p class="text-2xl font-bold text-indigo-600 my-2">${data.puntuales.linkedin}</p>
+                        <p class="text-gray-500 text-sm mb-3">${txt.descLinkedin}</p>
+                        <button
+                            type="button"
+                            onclick="addServiceToCart('optimizacionLinkedin', '${data.puntuales.linkedin}', '${region}')"
+                            class="inline-block bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold px-4 py-2 rounded-lg text-sm transition-fast w-full"
+                        >
+                            ${txt.agregarCarrito}
+                        </button>
+                    </div>
+
+                    <div class="bg-gray-50 p-5 rounded-lg border border-gray-200 text-center">
+                        <h4 class="font-bold text-lg">${txt.simulacro}</h4>
+                        <p class="text-2xl font-bold text-indigo-600 my-2">${data.puntuales.entrevista}</p>
+                        <p class="text-gray-500 text-sm mb-3">${txt.descSimulacro}</p>
+                        <button
+                            type="button"
+                            onclick="addServiceToCart('simulacro', '${data.puntuales.entrevista}', '${region}')"
+                            class="inline-block bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold px-4 py-2 rounded-lg text-sm transition-fast w-full"
+                        >
+                            ${txt.agregarCarrito}
+                        </button>
+                    </div>
+
+                    <div class="bg-gray-50 p-5 rounded-lg border border-gray-200 text-center">
+                        <h4 class="font-bold text-lg">${txt.negociacion}</h4>
+                        <p class="text-2xl font-bold text-indigo-600 my-2">${data.puntuales.negociacion}</p>
+                        <p class="text-gray-500 text-sm mb-3">${txt.descNegociacion}</p>
+                        <button
+                            type="button"
+                            onclick="addServiceToCart('negociacion', '${data.puntuales.negociacion}', '${region}')"
+                            class="inline-block bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold px-4 py-2 rounded-lg text-sm transition-fast w-full"
+                        >
+                            ${txt.agregarCarrito}
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById("tab-ie").className = region === "ie"
+                ? "px-6 py-2 rounded-full font-semibold tab-active transition-fast"
+                : "px-6 py-2 rounded-full font-semibold tab-inactive transition-fast";
+
+            document.getElementById("tab-es").className = region === "es"
+                ? "px-6 py-2 rounded-full font-semibold tab-active transition-fast"
+                : "px-6 py-2 rounded-full font-semibold tab-inactive transition-fast";
+
+            document.getElementById("tab-latam").className = region === "latam"
+                ? "px-6 py-2 rounded-full font-semibold tab-active transition-fast"
+                : "px-6 py-2 rounded-full font-semibold tab-inactive transition-fast";
+        }
+
+        function cambiarIdioma(idioma) {
+            currentLang = idioma;
+            const t = translations[idioma];
+            if (!t) return;
+
+            document.documentElement.lang = idioma;
+
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                if (t[key]) el.textContent = t[key];
+            });
+
+            const elements = [
+                "hero-sub", "hero-title", "hero-desc", "hero-btn", "hero-btn2", "hero-note",
+                "quienes-titulo", "quienes-text1", "quienes-text2", "quienes-cita",
+                "galizzi-desc", "ayala-desc", "galizzi-btn", "ayala-btn",
+                "metodologia-titulo", "metodologia-sub",
+                "paso1-tit", "paso1-desc", "paso2-tit", "paso2-desc", "paso3-tit", "paso3-desc",
+                "paso4-tit", "paso4-desc", "paso5-tit", "paso5-desc", "paso6-tit", "paso6-desc",
+                "quehacemos-titulo", "quehacemos-sub",
+                "serv1-tit", "serv1-desc", "serv2-tit", "serv2-desc", "serv3-tit", "serv3-desc",
+                "serv4-tit", "serv4-desc", "serv5-tit", "serv5-desc",
+                "cambia-titulo", "cambia-sub", "antes-th", "despues-th",
+                "antes1", "despues1", "antes2", "despues2", "antes3", "despues3",
+                "antes4", "despues4", "antes5", "despues5", "cambia-nota",
+                "precios-titulo", "precios-sub", "precios-nota",
+                "testimonios-titulo", "test1-text", "test1-role", "test2-text", "test2-role", "test3-text", "test3-role",
+                "faq-titulo", "faq1-q", "faq1-a", "faq2-q", "faq2-a", "faq3-q", "faq3-a", "faq4-q", "faq4-a",
+                "cta-titulo", "cta-desc", "cta-btn", "cta-note",
+                "footer-copy", "footer-contact"
+            ];
+
+            elements.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el || !t[id]) return;
+
+                switch (id) {
+                    case "hero-title":
+                    case "quienes-text1":
+                    case "quienes-text2":
+                    case "quienes-cita":
+                        el.innerHTML = t[id];
+                        break;
+
+                    case "hero-btn":
+                    case "cta-btn":
+                        el.innerHTML = `<i class="fas fa-calendar-alt"></i> ${t[id]}`;
+                        break;
+
+                    case "hero-btn2":
+                        el.innerHTML = `${t[id]} <i class="fas fa-arrow-right"></i>`;
+                        break;
+
+                    default:
+                        el.textContent = t[id];
+                }
+            });
+
+            cambiarPrecio(currentRegion);
+            renderCart();
+
+            document.getElementById("btn-es").className = idioma === "es"
+                ? "px-2 py-1 rounded text-sm font-semibold bg-indigo-600 text-white"
+                : "px-2 py-1 rounded text-sm font-semibold bg-gray-200 text-gray-700";
+
+            document.getElementById("btn-en").className = idioma === "en"
+                ? "px-2 py-1 rounded text-sm font-semibold bg-indigo-600 text-white"
+                : "px-2 py-1 rounded text-sm font-semibold bg-gray-200 text-gray-700";
+
+            document.getElementById("btn-pt").className = idioma === "pt"
+                ? "px-2 py-1 rounded text-sm font-semibold bg-indigo-600 text-white"
+                : "px-2 py-1 rounded text-sm font-semibold bg-gray-200 text-gray-700";
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            updateCartCount();
+            cambiarPrecio(currentRegion);
+            cambiarIdioma(currentLang);
+            renderCart();
+        });
+    </script>
 </body>
 </html>
